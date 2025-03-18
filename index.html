@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innovotes - Revolutionizing Voting</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;700i&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Innovotes Logo" class="main-logo">
+            <img src="DDC_Logo.svg" alt="DDC Corporation Logo" class="ddc-logo">
+        </div>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <button class="cta-btn">Get Involved</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <video autoplay muted loop class="hero-video">
+            <source src="voting-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h1>Revolutionizing Voting for the Digital Age</h1>
+            <p class="hero-text">Innovotes delivers secure, transparent, and accessible voting solutions.</p>
+            <button class="cta-btn" onclick="scrollToSection('how-it-works')">See How It Works</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <h2>Why Choose Innovotes?</h2>
+        <div class="feature-grid">
+            <article class="feature-card">
+                <h3>Watermarked Ballots</h3>
+                <p>Tamper-proof security for every vote.</p>
+            </article>
+            <article class="feature-card">
+                <h3>Same Day Voting</h3>
+                <p>Fast, efficient participation for all.</p>
+            </article>
+            <article class="feature-card">
+                <h3>Voter Verification</h3>
+                <p>Secure ID checks for eligibility.</p>
+            </article>
+            <article class="feature-card">
+                <h3>Ethical Design</h3>
+                <p>Transparency and fairness at every step.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works">
+        <h2>The Innovotes Process</h2>
+        <div class="steps">
+            <div class="step">
+                <h3>1. Voter Registration</h3>
+                <p>Verify your identity securely.</p>
+            </div>
+            <div class="step">
+                <h3>2. Ballot Issuance</h3>
+                <p>Receive a unique, watermarked ballot.</p>
+            </div>
+            <div class="step">
+                <h3>3. Casting Your Vote</h3>
+                <p>Vote privately in a tamper-proof booth.</p>
+            </div>
+            <div class="step">
+                <h3>4. Secure Counting</h3>
+                <p>Accurate results with dual verification.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section id="trust">
+        <h2>Built on Trust and Innovation</h2>
+        <div class="trust-grid">
+            <div class="trust-item">
+                <h3>99.9%</h3>
+                <p>Vote accuracy rate</p>
+            </div>
+            <div class="trust-item">
+                <blockquote>"A game-changer for election integrity."</blockquote>
+                <p>- Election Official</p>
+            </div>
+            <div class="trust-item">
+                <img src="DDC_Logo.svg" alt="DDC Partnership" class="ddc-partner-logo">
+                <p>Partnered with DDC Corporation</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>Our Mission</h2>
+        <p>Innovotes, in partnership with DDC Corporation, is committed to secure, ethical voting solutions that empower communities and uphold democracy.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Get in Touch</h2>
+        <form id="contact-form">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Innovotes. All rights reserved. | <a href="#">Privacy Policy</a></p>
+        <a href="#" class="back-to-top">Back to Top</a>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
