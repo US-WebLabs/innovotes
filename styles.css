@@ -38,7 +38,7 @@ header {
     font-size: 2rem;
     font-weight: 700;
     color: #fff;
-    text-shadow: 2px 2px 4px #000, 0 0 10px #00f, 0 0 20px #0ff; /* Fun, image-like glow effect */
+    text-shadow: 2px 2px 4px #000, 0 0 10px #00f, 0 0 20px #0ff;
     margin: 0;
 }
 nav a {
@@ -59,7 +59,7 @@ nav a:hover { color: #C0C0C0; }
 }
 .cta-btn:hover { background: #CC0000; }
 
-/* Hero Section */
+/* Hero Section with Three.js */
 #hero {
     height: 100vh;
     position: relative;
@@ -70,14 +70,16 @@ nav a:hover { color: #C0C0C0; }
     color: white;
     overflow: hidden;
 }
-.hero-video {
+#three-canvas {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: #003366;
     z-index: -1;
+}
+.hero-content {
+    z-index: 1;
 }
 .hero-content h1 {
     font-size: 3.5rem;
@@ -90,8 +92,10 @@ nav a:hover { color: #C0C0C0; }
     margin-bottom: 2rem;
 }
 
-/* Features, How It Works, Trust, About, Contact Sections (unchanged, adjust as needed) */
-/* ... (keep existing styles for these sections) ... */
+/* Features, How It Works, Trust, About, Contact Sections (unchanged) */
+#features, #how-it-works, #trust, #about, #contact {
+    /* Existing styles... */
+}
 
 /* Footer */
 footer {
