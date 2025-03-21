@@ -5,22 +5,8 @@ const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('scene-container').appendChild(renderer.domElement);
 
-// Postprocessing
-const composer = new THREE.EffectComposer(renderer);
-const renderPass = new THREE.RenderPass(scene, camera);
-composer.addPass(renderPass);
-const bloomPass = new THREE.UnrealBloomPass(
-    new THREE.Vector2(window.innerWidth, window.innerHeight),
-    0.8, 0.4, 0.85
-);
-composer.addPass(bloomPass);
-
 camera.position.set(0, 10, 20);
 camera.lookAt(0, 0, 0);
-
-// Physics World
-const world = new CANNON.World();
-world.gravity.set(0, -9.82, 0);
 
 // Lighting
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
@@ -32,7 +18,7 @@ scene.add(directionalLight);
 // Voter
 const voter = new THREE.Mesh(
     new THREE.SphereGeometry(0.8, 32, 32),
-    new THREE.MeshPhongMaterial({ color: 0x00bfff, transparent: true, opacity: 0.6, shininess: 100 })
+    new THREE.MeshPhongMaterial({ color: 0x00bfff, shininess: 100 })
 );
 voter.position.set(-15, 1.5, 0);
 scene.add(voter);
@@ -50,25 +36,13 @@ const idCard = new THREE.Mesh(
 );
 idCard.position.set(-10, 0, 0);
 scene.add(idCard);
-const idChip = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.2, 0.2, 0.05, 32),
-    new THREE.MeshBasicMaterial({ color: 0x00bfff })
-);
-idChip.position.set(-10, 0.1, 0);
-scene.add(idChip);
 
 // Stage 2: Watermarked Document
-const ballotBody = new CANNON.Body({
-    mass: 1,
-    shape: new CANNON.Box(new CANNON.Vec3(1, 0.025, 1.5))
-});
-ballotBody.position.set(-5, 2, 0);
-world.addBody(ballotBody);
 const ballot = new THREE.Mesh(
     new THREE.BoxGeometry(2, 0.05, 3),
     new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0x00bfff, shininess: 50 })
 );
-ballot.position.copy(ballotBody.position);
+ballot.position.set(-5, 0, 0);
 scene.add(ballot);
 const watermark = new THREE.Mesh(
     new THREE.TorusGeometry(0.5, 0.1, 16, 32),
@@ -85,39 +59,21 @@ const votingMachine = new THREE.Mesh(
 votingMachine.position.set(0, 0, 0);
 votingMachine.rotation.x = Math.PI / 2;
 scene.add(votingMachine);
-const votePanel = new THREE.Mesh(
-    new THREE.PlaneGeometry(1, 1),
-    new THREE.MeshBasicMaterial({ color: 0x00bfff })
-);
-votePanel.position.set(0, 1.1, 0);
-scene.add(votePanel);
 
 // Stage 4: Secure Vote Counting
 const vault = new THREE.Mesh(
     new THREE.IcosahedronGeometry(2, 1),
-    new THREE.MeshPhongMaterial({ color: 0x00bfff, transparent: true, opacity: 0.7, shininess: 100 })
+    new THREE.MeshPhongMaterial({ color: 0x00bfff, shininess: 100 })
 );
 vault.position.set(8, 0, 0);
 scene.add(vault);
-const tallyDisplay = new THREE.Mesh(
-    new THREE.PlaneGeometry(1.5, 0.8),
-    new THREE.MeshBasicMaterial({ color: 0xffffff })
-);
-tallyDisplay.position.set(8, 2, 0.1);
-scene.add(tallyDisplay);
 
 // Stage 5: Paper Verification
-const paperStackBody = new CANNON.Body({
-    mass: 0,
-    shape: new CANNON.Box(new CANNON.Vec3(1, 0.25, 0.75))
-});
-paperStackBody.position.set(14, 0, 0);
-world.addBody(paperStackBody);
 const paperStack = new THREE.Mesh(
     new THREE.BoxGeometry(2, 0.5, 1.5),
     new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0x00bfff, shininess: 30 })
 );
-paperStack.position.copy(paperStackBody.position);
+paperStack.position.set(14, 0, 0);
 scene.add(paperStack);
 
 // Checkmarks
@@ -145,22 +101,19 @@ function playDemo() {
 
     tl.to(camera.position, { x: -10, y: 5, z: 10, duration: 2, ease: "power2.inOut" })
       .to(idCard.rotation, { y: "+=6.28", duration: 2, ease: "power2.inOut" }, "<")
-      .to(idChip.rotation, { z: "+=12.56", duration: 2, ease: "power2.inOut" }, "<")
       .to(checks[1].scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" });
 
     tl.to(camera.position, { x: -5, y: 5, z: 10, duration: 2, ease: "power2.inOut" })
-      .to(ballotBody.position, { y: 0, duration: 2, ease: "bounce.out" }, "<")
+      .to(ballot.position, { y: 1, duration: 1, yoyo: true, repeat: 1 }, "<")
       .to(watermark.rotation, { z: "+=6.28", duration: 2, ease: "power2.inOut" }, "<")
       .to(checks[2].scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" });
 
     tl.to(camera.position, { x: 0, y: 5, z: 10, duration: 2, ease: "power2.inOut" })
       .to(votingMachine.rotation, { y: "+=3.14", duration: 2, ease: "power2.inOut" }, "<")
-      .to(votePanel.scale, { x: 1.2, y: 1.2, z: 1.2, duration: 1, yoyo: true, repeat: 1 }, "<")
       .to(checks[3].scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" });
 
     tl.to(camera.position, { x: 8, y: 5, z: 10, duration: 2, ease: "power2.inOut" })
       .to(vault.scale, { x: 1.1, y: 1.1, z: 1.1, duration: 1, yoyo: true, repeat: 1 }, "<")
-      .to(tallyDisplay.scale, { x: 1.2, y: 1.2, z: 1.2, duration: 1, yoyo: true, repeat: 1 }, "<")
       .to(checks[4].scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" });
 }
 
@@ -168,14 +121,7 @@ function playDemo() {
 let stage = -1;
 function animate() {
     requestAnimationFrame(animate);
-
-    world.step(1 / 60);
-    ballot.position.copy(ballotBody.position);
-    ballot.quaternion.copy(ballotBody.quaternion);
-    paperStack.position.copy(paperStackBody.position);
-    paperStack.quaternion.copy(paperStackBody.quaternion);
-
-    composer.render();
+    renderer.render(scene, camera);
 }
 animate();
 
@@ -229,4 +175,4 @@ window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-    compose
+});
