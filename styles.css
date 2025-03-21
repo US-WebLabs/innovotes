@@ -2,8 +2,8 @@ body {
     margin: 0;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #eef2f7, #b0c4de);
-    color: #fff;
+    background: linear-gradient(135deg, #2a2a72, #009ffd); /* Darker gradient for contrast */
+    color: #ffffff; /* Default text color */
 }
 
 #scene-container {
@@ -26,14 +26,14 @@ body {
 
 h1 {
     font-size: 4.5em;
-    color: #00bfff;
-    text-shadow: 0 0 20px rgba(0, 191, 255, 0.9), 0 0 40px rgba(255, 255, 255, 0.5);
+    color: #ffffff; /* Bright white for visibility */
+    text-shadow: 0 0 20px rgba(0, 191, 255, 0.9), 0 0 40px rgba(0, 0, 0, 0.7); /* Darker shadow for contrast */
 }
 
 p {
     font-size: 1.8em;
-    color: #ffffff;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+    color: #ffffff; /* Bright white */
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Subtle black shadow */
 }
 
 #start-button {
@@ -41,7 +41,7 @@ p {
     padding: 15px 35px;
     font-size: 1.3em;
     background: linear-gradient(45deg, #00bfff, #1e90ff);
-    color: #fff;
+    color: #ffffff; /* White text */
     border: none;
     border-radius: 30px;
     cursor: pointer;
@@ -51,7 +51,7 @@ p {
 
 #start-button:hover {
     background: linear-gradient(45deg, #ffd700, #ffec80);
-    color: #000;
+    color: #000000; /* Black text on hover for contrast */
     box-shadow: 0 0 35px rgba(255, 215, 0, 1);
 }
 
@@ -61,6 +61,6 @@ footer {
     width: 100%;
     text-align: center;
     font-size: 0.9em;
-    color: #ddd;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    color: #ffffff; /* White for visibility */
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Black shadow for contrast */
 }
