@@ -2,7 +2,7 @@ body {
     margin: 0;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #eef2f7, #b0c4de); /* Subtle gradient for depth */
+    background: linear-gradient(135deg, #eef2f7, #b0c4de);
     color: #fff;
 }
 
