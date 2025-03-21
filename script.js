@@ -11,13 +11,12 @@ const renderPass = new THREE.RenderPass(scene, camera);
 composer.addPass(renderPass);
 const bloomPass = new THREE.UnrealBloomPass(
     new THREE.Vector2(window.innerWidth, window.innerHeight),
-    0.8, // Strength
-    0.4, // Radius
-    0.85 // Threshold
+    0.8, 0.4, 0.85
 );
 composer.addPass(bloomPass);
 
 camera.position.set(0, 10, 20);
+camera.lookAt(0, 0, 0);
 
 // Physics World
 const world = new CANNON.World();
@@ -30,7 +29,7 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(5, 10, 5);
 scene.add(directionalLight);
 
-// Voter (Simulated GLTF Placeholder)
+// Voter
 const voter = new THREE.Mesh(
     new THREE.SphereGeometry(0.8, 32, 32),
     new THREE.MeshPhongMaterial({ color: 0x00bfff, transparent: true, opacity: 0.6, shininess: 100 })
@@ -58,7 +57,7 @@ const idChip = new THREE.Mesh(
 idChip.position.set(-10, 0.1, 0);
 scene.add(idChip);
 
-// Stage 2: Watermarked Document (Physics-enabled)
+// Stage 2: Watermarked Document
 const ballotBody = new CANNON.Body({
     mass: 1,
     shape: new CANNON.Box(new CANNON.Vec3(1, 0.025, 1.5))
@@ -107,9 +106,9 @@ const tallyDisplay = new THREE.Mesh(
 tallyDisplay.position.set(8, 2, 0.1);
 scene.add(tallyDisplay);
 
-// Stage 5: Paper Verification (Physics-enabled)
+// Stage 5: Paper Verification
 const paperStackBody = new CANNON.Body({
-    mass: 0, // Static
+    mass: 0,
     shape: new CANNON.Box(new CANNON.Vec3(1, 0.25, 0.75))
 });
 paperStackBody.position.set(14, 0, 0);
@@ -140,39 +139,29 @@ for (let i = 0; i < 5; i++) {
 function playDemo() {
     const tl = gsap.timeline({ onComplete: () => stage = 6 });
 
-    // Stage 0: Voter Initiation
     tl.to(camera.position, { x: -15, y: 5, z: 10, duration: 2, ease: "power2.inOut" })
       .to(beginOrb.scale, { x: 1.5, y: 1.5, z: 1.5, duration: 1, yoyo: true, repeat: 1 }, 0)
       .to(checks[0].scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }, 2);
 
-    // Stage 1: Proof of Person
     tl.to(camera.position, { x: -10, y: 5, z: 10, duration: 2, ease: "power2.inOut" })
       .to(idCard.rotation, { y: "+=6.28", duration: 2, ease: "power2.inOut" }, "<")
       .to(idChip.rotation, { z: "+=12.56", duration: 2, ease: "power2.inOut" }, "<")
       .to(checks[1].scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" });
 
-    // Stage 2: Watermarked Document
     tl.to(camera.position, { x: -5, y: 5, z: 10, duration: 2, ease: "power2.inOut" })
       .to(ballotBody.position, { y: 0, duration: 2, ease: "bounce.out" }, "<")
       .to(watermark.rotation, { z: "+=6.28", duration: 2, ease: "power2.inOut" }, "<")
       .to(checks[2].scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" });
 
-    // Stage 3: Secure Vote Casting
     tl.to(camera.position, { x: 0, y: 5, z: 10, duration: 2, ease: "power2.inOut" })
       .to(votingMachine.rotation, { y: "+=3.14", duration: 2, ease: "power2.inOut" }, "<")
       .to(votePanel.scale, { x: 1.2, y: 1.2, z: 1.2, duration: 1, yoyo: true, repeat: 1 }, "<")
       .to(checks[3].scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" });
 
-    // Stage 4: Secure Vote Counting
     tl.to(camera.position, { x: 8, y: 5, z: 10, duration: 2, ease: "power2.inOut" })
       .to(vault.scale, { x: 1.1, y: 1.1, z: 1.1, duration: 1, yoyo: true, repeat: 1 }, "<")
       .to(tallyDisplay.scale, { x: 1.2, y: 1.2, z: 1.2, duration: 1, yoyo: true, repeat: 1 }, "<")
       .to(checks[4].scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" });
-
-    // Stage 5: Paper Verification
-    tl.to(camera.position, { x: 14, y: 5, z: 10, duration: 2, ease: "power2.inOut" })
-      .to(paperStack.position, { y: 0.2, duration: 1, yoyo: true, repeat: 1 }, "<")
-      .to(checks[4].scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }); // Reuse check for simplicity
 }
 
 // Animation Loop
@@ -180,7 +169,6 @@ let stage = -1;
 function animate() {
     requestAnimationFrame(animate);
 
-    // Physics Step
     world.step(1 / 60);
     ballot.position.copy(ballotBody.position);
     ballot.quaternion.copy(ballotBody.quaternion);
@@ -241,5 +229,4 @@ window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-    composer.setSize(window.innerWidth, window.innerHeight);
-});
+    compose
