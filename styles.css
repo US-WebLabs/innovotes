@@ -1,8 +1,8 @@
 body {
     margin: 0;
     overflow: hidden;
-    font-family: Arial, sans-serif;
-    background: #0a0a23; /* Dark blue for a techy, trustworthy vibe */
+    font-family: 'Arial', sans-serif;
+    background: #f0f4f8; /* Light, clean backdrop */
     color: #fff;
 }
 
@@ -21,45 +21,46 @@ body {
     transform: translateX(-50%);
     text-align: center;
     z-index: 1;
+    pointer-events: none;
 }
 
 h1 {
-    font-size: 3em;
-    color: #ffd700; /* Gold for a patriotic, premium feel */
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+    font-size: 4em;
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(0, 191, 255, 0.8);
 }
 
 p {
-    font-size: 1.5em;
-    margin: 10px 0;
-    color: #fff;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    font-size: 1.8em;
+    color: #e0e0e0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
-#cta-button {
+#vote-button {
+    pointer-events: auto;
     padding: 15px 30px;
     font-size: 1.2em;
-    background: #ff0000; /* Red for boldness */
+    background: #00bfff; /* Bright blue for trust */
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.7);
     transition: all 0.3s ease;
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
 }
 
-#cta-button:hover {
-    background: #ffd700;
-    color: #0a0a23;
-    box-shadow: 0 0 25px rgba(255, 215, 0, 0.9);
+#vote-button:hover {
+    background: #ffd700; /* Gold for emphasis */
+    color: #000;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.9);
 }
 
 footer {
     position: absolute;
-    bottom: 10px;
+    bottom: 15px;
     width: 100%;
     text-align: center;
     font-size: 0.9em;
-    color: #ccc;
+    color: #aaa;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
