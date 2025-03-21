@@ -2,7 +2,7 @@ body {
     margin: 0;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
-    background: #e8f0f5; /* Light, trustworthy base */
+    background: #eef2f7; /* Light, clean base */
     color: #fff;
 }
 
@@ -36,7 +36,7 @@ p {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
-#vote-button {
+#start-button {
     pointer-events: auto;
     padding: 15px 30px;
     font-size: 1.2em;
@@ -49,7 +49,7 @@ p {
     transition: all 0.3s ease;
 }
 
-#vote-button:hover {
+#start-button:hover {
     background: #ffd700;
     color: #000;
     box-shadow: 0 0 30px rgba(255, 215, 0, 0.9);
@@ -61,6 +61,6 @@ footer {
     width: 100%;
     text-align: center;
     font-size: 0.9em;
-    color: #bbb;
+    color: #ccc;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
