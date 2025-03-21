@@ -7,10 +7,6 @@ if (typeof gsap === 'undefined') {
     console.error('GSAP not loaded. Ensure gsap.min.js is sourced correctly.');
     throw new Error('GSAP not defined');
 }
-if (typeof THREE.FontLoader === 'undefined') {
-    console.error('FontLoader not loaded. Ensure the FontLoader script is sourced correctly.');
-    throw new Error('FontLoader not defined');
-}
 
 // Renderer Setup
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -177,41 +173,16 @@ Object.keys(scenes).forEach(key => {
     checks[key] = check;
 });
 
-// Font Loader (Helvetica for professional look)
-const fontLoader = new THREE.FontLoader();
-let font;
-fontLoader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', (loadedFont) => {
-    font = loadedFont;
-    initText();
-});
-
-// Instructional Text with Explanations
-const textObjects = {};
-function initText() {
-    const instructions = {
-        voter: "Step 1: Start the Process\nInnovotes begins with a secure voter entry point.",
-        proof: "Step 2: Verify Your Identity\nOnly authorized voters proceed with advanced ID checks.",
-        watermark: "Step 3: Get Your Secure Ballot\nReceive a tamper-proof ballot with a unique watermark.",
-        casting: "Step 4: Cast Your Vote Safely\nYour vote is encrypted and sent securely.",
-        counting: "Step 5: See Your Vote Counted\nTransparent, real-time tallying ensures accuracy.",
-        verification: "Step 6: Confirm with Paper Backup\nA paper trail verifies the digital count."
-    };
-    Object.keys(scenes).forEach(key => {
-        const textGeometry = new THREE.TextGeometry(instructions[key], {
-            font: font,
-            size: 0.4,
-            height: 0.05,
-            curveSegments: 12,
-            bevelEnabled: false
-        });
-        const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
-        const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-        textMesh.position.set(-3, 4, 0);
-        textMesh.scale.set(0, 0, 0);
-        scenes[key].add(textMesh);
-        textObjects[key] = textMesh;
-    });
-}
+// Instructional Text with Explanations (DOM-based)
+const instructionText = document.getElementById('instruction-text');
+const instructions = {
+    voter: "Step 1: Start the Process\nInnovotes begins with a secure voter entry point.",
+    proof: "Step 2: Verify Your Identity\nOnly authorized voters proceed with advanced ID checks.",
+    watermark: "Step 3: Get Your Secure Ballot\nReceive a tamper-proof ballot with a unique watermark.",
+    casting: "Step 4: Cast Your Vote Safely\nYour vote is encrypted and sent securely.",
+    counting: "Step 5: See Your Vote Counted\nTransparent, real-time tallying ensures accuracy.",
+    verification: "Step 6: Confirm with Paper Backup\nA paper trail verifies the digital count."
+};
 
 // Animation State
 let currentScene = scenes.voter;
@@ -224,66 +195,66 @@ function playDemo() {
     gsap.to(startButton, { opacity: 0, duration: 0.5, ease: "power2.in", onComplete: () => startButton.style.display = 'none' });
 
     if (timeline) timeline.kill();
-    timeline = gsap.timeline({ onComplete: () => stage = 6 });
+    timeline = gsap.timeline({ onComplete: () => { stage = 6; instructionText.style.opacity = 0; } });
 
     // Step 1: Voter Initiation
     timeline.set({}, { onStart: () => currentScene = scenes.voter })
       .to(camera.position, { x: 0, y: 5, z: 10, duration: 2, ease: "power3.inOut" })
       .to(voterBody.scale, { x: 1.1, y: 1.1, z: 1.1, duration: 1, yoyo: true, repeat: 1 }, 0)
       .to(consoleScreen, { opacity: 1, duration: 1, ease: "power2.in" }, 0.5)
-      .to(textObjects.voter.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }, 0)
+      .to(instructionText, { opacity: 1, duration: 0.5, ease: "power2.in", onStart: () => instructionText.textContent = instructions.voter }, 0)
       .to(checks.voter.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }, 2)
       .to({}, { duration: 3, id: "voterPause" });
 
     // Step 2: Proof of Person
     timeline.set({}, { onStart: () => currentScene = scenes.proof })
-      .to(textObjects.voter.scale, { x: 0, y: 0, z: 0, duration: 0.5, ease: "back.in" })
+      .to(instructionText, { opacity: 0, duration: 0.5, ease: "power2.out" })
       .to(camera.position, { x: 0, y: 5, z: 8, duration: 2, ease: "power3.inOut" })
       .to(idCardBase.rotation, { y: "+=6.28", duration: 2, ease: "power2.inOut" }, "<")
       .to(idHolo, { opacity: 0.8, duration: 1, yoyo: true, repeat: 1 }, "<")
       .to(idChip.rotation, { x: "+=12.56", duration: 2, ease: "power2.inOut" }, "<")
-      .to(textObjects.proof.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }, "<")
+      .to(instructionText, { opacity: 1, duration: 0.5, ease: "power2.in", onStart: () => instructionText.textContent = instructions.proof }, "<")
       .to(checks.proof.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }, 2)
       .to({}, { duration: 3, id: "proofPause" });
 
     // Step 3: Watermarked Document
     timeline.set({}, { onStart: () => currentScene = scenes.watermark })
-      .to(textObjects.proof.scale, { x: 0, y: 0, z: 0, duration: 0.5, ease: "back.in" })
+      .to(instructionText, { opacity: 0, duration: 0.5, ease: "power2.out" })
       .to(camera.position, { x: 0, y: 5, z: 10, duration: 2, ease: "power3.inOut" })
       .to(ballotBase.position, { y: 0.5, duration: 1, ease: "bounce.out" }, "<")
       .to(watermarkSeal.scale, { x: 1.2, y: 1.2, z: 1.2, duration: 1, yoyo: true, repeat: 1 }, "<")
       .to(watermarkSeal.rotation, { z: "+=6.28", duration: 2, ease: "power2.inOut" }, "<")
-      .to(textObjects.watermark.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }, "<")
+      .to(instructionText, { opacity: 1, duration: 0.5, ease: "power2.in", onStart: () => instructionText.textContent = instructions.watermark }, "<")
       .to(checks.watermark.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }, 2)
       .to({}, { duration: 3, id: "watermarkPause" });
 
     // Step 4: Secure Vote Casting
     timeline.set({}, { onStart: () => currentScene = scenes.casting })
-      .to(textObjects.watermark.scale, { x: 0, y: 0, z: 0, duration: 0.5, ease: "back.in" })
+      .to(instructionText, { opacity: 0, duration: 0.5, ease: "power2.out" })
       .to(camera.position, { x: 0, y: 5, z: 10, duration: 2, ease: "power3.inOut" })
       .to(machineBody.rotation, { y: "+=3.14", duration: 2, ease: "power2.inOut" }, "<")
       .to(votePanel.scale, { x: 1.3, y: 1.3, z: 1.3, duration: 1, yoyo: true, repeat: 1 }, "<")
-      .to(textObjects.casting.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }, "<")
+      .to(instructionText, { opacity: 1, duration: 0.5, ease: "power2.in", onStart: () => instructionText.textContent = instructions.casting }, "<")
       .to(checks.casting.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }, 2)
       .to({}, { duration: 3, id: "castingPause" });
 
     // Step 5: Secure Vote Counting
     timeline.set({}, { onStart: () => currentScene = scenes.counting })
-      .to(textObjects.casting.scale, { x: 0, y: 0, z: 0, duration: 0.5, ease: "back.in" })
+      .to(instructionText, { opacity: 0, duration: 0.5, ease: "power2.out" })
       .to(camera.position, { x: 0, y: 5, z: 10, duration: 2, ease: "power3.inOut" })
       .to(vaultBody.scale, { x: 1.2, y: 1.2, z: 1.2, duration: 1, yoyo: true, repeat: 1 }, "<")
       .to(tallyHolo, { opacity: 1, duration: 1, ease: "power2.in" }, "<")
-      .to(textObjects.counting.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }, "<")
+      .to(instructionText, { opacity: 1, duration: 0.5, ease: "power2.in", onStart: () => instructionText.textContent = instructions.counting }, "<")
       .to(checks.counting.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }, 2)
       .to({}, { duration: 3, id: "countingPause" });
 
     // Step 6: Paper Verification
     timeline.set({}, { onStart: () => currentScene = scenes.verification })
-      .to(textObjects.counting.scale, { x: 0, y: 0, z: 0, duration: 0.5, ease: "back.in" })
+      .to(instructionText, { opacity: 0, duration: 0.5, ease: "power2.out" })
       .to(camera.position, { x: 0, y: 5, z: 10, duration: 2, ease: "power3.inOut" })
       .to(paperBase.position, { y: 0.3, duration: 1, yoyo: true, repeat: 1 }, "<")
       .to(scannerBeam.scale, { y: 1.5, duration: 1, yoyo: true, repeat: 1 }, "<")
-      .to(textObjects.verification.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }, "<")
+      .to(instructionText, { opacity: 1, duration: 0.5, ease: "power2.in", onStart: () => instructionText.textContent = instructions.verification }, "<")
       .to(checks.verification.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }, 2)
       .to({}, { duration: 3, id: "verificationPause" });
 }
@@ -343,8 +314,4 @@ document.getElementById('start-button').addEventListener('click', () => {
 });
 
 // Resize
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
+window.addEventListene
