@@ -7,6 +7,10 @@ if (typeof gsap === 'undefined') {
     console.error('GSAP not loaded. Ensure gsap.min.js is sourced correctly.');
     throw new Error('GSAP not defined');
 }
+if (typeof THREE.FontLoader === 'undefined') {
+    console.error('FontLoader not loaded. Ensure the FontLoader script is sourced correctly.');
+    throw new Error('FontLoader not defined');
+}
 
 // Renderer Setup
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -43,7 +47,6 @@ Object.values(scenes).forEach(scene => {
 
 // Scene Objects (Impressively Real)
 // Step 1: Voter Initiation - "Start the Process"
-// Innovotes offers a user-friendly entry point where voters initiate the secure process.
 const voterBody = new THREE.Mesh(
     new THREE.CylinderGeometry(0.5, 0.5, 2, 32),
     new THREE.MeshStandardMaterial({ color: 0x00bfff, metalness: 0.8, roughness: 0.2, emissive: 0x003366 })
@@ -66,13 +69,12 @@ consoleBase.castShadow = true;
 scenes.voter.add(consoleBase);
 const consoleScreen = new THREE.Mesh(
     new THREE.PlaneGeometry(1.2, 0.8),
-    new THREE.MeshBasicMaterial({ color: 0x00bfff, emissive: 0x00bfff, transparent: true, opacity: 0.9 })
+    new THREE.MeshStandardMaterial({ color: 0x00bfff, emissive: 0x00bfff, metalness: 0, roughness: 1, transparent: true, opacity: 0.9 })
 );
 consoleScreen.position.set(2, 0.75, 0.01);
 scenes.voter.add(consoleScreen);
 
 // Step 2: Proof of Person - "Verify Your Identity"
-// Innovotes ensures only authorized voters participate using advanced ID verification.
 const idCardBase = new THREE.Mesh(
     new THREE.BoxGeometry(2.5, 0.1, 3.5),
     new THREE.MeshStandardMaterial({ color: 0x4682b4, metalness: 0.95, roughness: 0.05, envMapIntensity: 1 })
@@ -94,7 +96,6 @@ idChip.position.set(0.8, 0.1, 1);
 scenes.proof.add(idChip);
 
 // Step 3: Specialized Watermarked Document - "Get Your Secure Ballot"
-// Innovotes provides tamper-proof ballots with unique watermarks for authenticity.
 const ballotBase = new THREE.Mesh(
     new THREE.BoxGeometry(2, 0.05, 3),
     new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0x00bfff, shininess: 100, transparent: true, opacity: 0.9 })
@@ -110,7 +111,6 @@ watermarkSeal.position.set(0, 0.1, 0);
 scenes.watermark.add(watermarkSeal);
 
 // Step 4: Secure Vote Casting - "Cast Your Vote Safely"
-// Innovotes uses cutting-edge tech to encrypt and transmit votes securely.
 const machineBody = new THREE.Mesh(
     new THREE.CylinderGeometry(1.5, 1.5, 2, 32, 1, true),
     new THREE.MeshStandardMaterial({ color: 0x4682b4, metalness: 0.9, roughness: 0.1 })
@@ -121,7 +121,7 @@ machineBody.castShadow = true;
 scenes.casting.add(machineBody);
 const votePanel = new THREE.Mesh(
     new THREE.PlaneGeometry(1.2, 1.2),
-    new THREE.MeshBasicMaterial({ color: 0x00bfff, emissive: 0x00bfff, transparent: true, opacity: 0.8 })
+    new THREE.MeshStandardMaterial({ color: 0x00bfff, emissive: 0x00bfff, metalness: 0, roughness: 1, transparent: true, opacity: 0.8 })
 );
 votePanel.position.set(0, 1.1, 0);
 scenes.casting.add(votePanel);
@@ -133,7 +133,6 @@ panelFrame.position.set(0, 1.1, 0);
 scenes.casting.add(panelFrame);
 
 // Step 5: Secure Vote Counting - "See Your Vote Counted"
-// Innovotes ensures transparent, real-time vote tallying with no tampering.
 const vaultBody = new THREE.Mesh(
     new THREE.IcosahedronGeometry(2, 2),
     new THREE.MeshPhongMaterial({ color: 0x00bfff, shininess: 150, specular: 0x444444, transparent: true, opacity: 0.8 })
@@ -143,13 +142,12 @@ vaultBody.castShadow = true;
 scenes.counting.add(vaultBody);
 const tallyHolo = new THREE.Mesh(
     new THREE.PlaneGeometry(1.5, 0.8),
-    new THREE.MeshBasicMaterial({ color: 0xffffff, emissive: 0x00bfff, transparent: true, opacity: 0.7 })
+    new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x00bfff, metalness: 0, roughness: 1, transparent: true, opacity: 0.7 })
 );
 tallyHolo.position.set(0, 2, 0.1);
 scenes.counting.add(tallyHolo);
 
 // Step 6: Paper Verification - "Confirm with Paper Backup"
-// Innovotes offers a physical paper trail to double-check digital results.
 const paperBase = new THREE.Mesh(
     new THREE.BoxGeometry(2, 0.5, 1.5),
     new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0x00bfff, shininess: 50 })
@@ -194,7 +192,7 @@ function initText() {
         voter: "Step 1: Start the Process\nInnovotes begins with a secure voter entry point.",
         proof: "Step 2: Verify Your Identity\nOnly authorized voters proceed with advanced ID checks.",
         watermark: "Step 3: Get Your Secure Ballot\nReceive a tamper-proof ballot with a unique watermark.",
-        casting: "Step 4: Cast Your Vote Safely\nYour vote is encrypted and stored securely.",
+        casting: "Step 4: Cast Your Vote Safely\nYour vote is encrypted and sent securely.",
         counting: "Step 5: See Your Vote Counted\nTransparent, real-time tallying ensures accuracy.",
         verification: "Step 6: Confirm with Paper Backup\nA paper trail verifies the digital count."
     };
@@ -235,7 +233,7 @@ function playDemo() {
       .to(consoleScreen, { opacity: 1, duration: 1, ease: "power2.in" }, 0.5)
       .to(textObjects.voter.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }, 0)
       .to(checks.voter.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" }, 2)
-      .to({}, { duration: 3, id: "voterPause" }); // Pause for reading
+      .to({}, { duration: 3, id: "voterPause" });
 
     // Step 2: Proof of Person
     timeline.set({}, { onStart: () => currentScene = scenes.proof })
@@ -319,10 +317,10 @@ renderer.domElement.addEventListener('mousemove', (event) => {
 });
 
 renderer.domElement.addEventListener('click', () => {
-    if (stage === -1 || stage === 6) return; // Ignore clicks before demo starts or after it ends
+    if (stage === -1 || stage === 6) return;
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(currentScene.children.filter(obj => obj.isMesh));
-    if (intersects.length > 0 || true) { // Click anywhere to advance
+    if (intersects.length > 0 || true) {
         switch (stage) {
             case 0: timeline.seek("proofPause"); stage = 1; break;
             case 1: timeline.seek("watermarkPause"); stage = 2; break;
