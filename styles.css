@@ -2,7 +2,7 @@ body {
     margin: 0;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
-    background: #f0f4f8; /* Light, clean backdrop */
+    background: #e8f0f5; /* Light, trustworthy base */
     color: #fff;
 }
 
@@ -16,7 +16,7 @@ body {
 
 .overlay {
     position: absolute;
-    top: 20%;
+    top: 15%;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -26,13 +26,13 @@ body {
 
 h1 {
     font-size: 4em;
-    color: #ffffff;
+    color: #00bfff;
     text-shadow: 0 0 15px rgba(0, 191, 255, 0.8);
 }
 
 p {
-    font-size: 1.8em;
-    color: #e0e0e0;
+    font-size: 1.6em;
+    color: #ffffff;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
@@ -40,7 +40,7 @@ p {
     pointer-events: auto;
     padding: 15px 30px;
     font-size: 1.2em;
-    background: #00bfff; /* Bright blue for trust */
+    background: #00bfff;
     color: #fff;
     border: none;
     border-radius: 25px;
@@ -50,17 +50,17 @@ p {
 }
 
 #vote-button:hover {
-    background: #ffd700; /* Gold for emphasis */
+    background: #ffd700;
     color: #000;
     box-shadow: 0 0 30px rgba(255, 215, 0, 0.9);
 }
 
 footer {
     position: absolute;
-    bottom: 15px;
+    bottom: 10px;
     width: 100%;
     text-align: center;
     font-size: 0.9em;
-    color: #aaa;
+    color: #bbb;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
