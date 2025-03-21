@@ -5,7 +5,6 @@ const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('scene-container').appendChild(renderer.domElement);
 camera.position.set(0, 10, 20);
-camera.lookAt(0, 0, 0);
 
 // Lighting
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
@@ -14,37 +13,28 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
 directionalLight.position.set(5, 10, 5);
 scene.add(directionalLight);
 
-// Stage 1: Proof of Person
-const idGeometry = new THREE.PlaneGeometry(2, 3);
-const idMaterial = new THREE.MeshBasicMaterial({ color: 0x00bfff, transparent: true, opacity: 0.8, side: THREE.DoubleSide });
-const idCard = new THREE.Mesh(idGeometry, idMaterial);
-idCard.position.set(-12, 0, 0);
+// Voter
+const voterGeometry = new THREE.CylinderGeometry(0.5, 0.5, 2, 32);
+const voterMaterial = new THREE.MeshPhongMaterial({ color: 0x00bfff, transparent: true, opacity: 0.7 });
+const voter = new THREE.Mesh(voterGeometry, voterMaterial);
+voter.position.set(-15, 1, 0);
+scene.add(voter);
+
+// Stage Objects
+const idCard = new THREE.Mesh(
+    new THREE.PlaneGeometry(2, 3),
+    new THREE.MeshBasicMaterial({ color: 0x00bfff, transparent: true, opacity: 0.8, side: THREE.DoubleSide })
+);
+idCard.position.set(-10, 0, 0);
 scene.add(idCard);
 
-const scanBeam = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.1, 0.1, 5, 32),
-    new THREE.MeshBasicMaterial({ color: 0x00bfff, transparent: true, opacity: 0.5 })
+const ballot = new THREE.Mesh(
+    new THREE.PlaneGeometry(2, 3),
+    new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.7, side: THREE.DoubleSide })
 );
-scanBeam.position.set(-12, 0, 0);
-scanBeam.rotation.z = Math.PI / 2;
-scanBeam.visible = false;
-scene.add(scanBeam);
-
-// Stage 2: Specialized Watermarked Document
-const ballotGeometry = new THREE.PlaneGeometry(2, 3);
-const ballotMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.7, side: THREE.DoubleSide });
-const ballot = new THREE.Mesh(ballotGeometry, ballotMaterial);
-ballot.position.set(-6, 0, 0);
+ballot.position.set(-5, 0, 0);
 scene.add(ballot);
 
-const watermark = new THREE.Mesh(
-    new THREE.CircleGeometry(1, 32),
-    new THREE.MeshBasicMaterial({ color: 0x00bfff, transparent: true, opacity: 0.5 })
-);
-watermark.position.set(-6, 0, 0.1);
-scene.add(watermark);
-
-// Stage 3: Secure Vote Casting
 const votingMachine = new THREE.Mesh(
     new THREE.BoxGeometry(2, 2, 2),
     new THREE.MeshPhongMaterial({ color: 0x00bfff, transparent: true, opacity: 0.4 })
@@ -52,119 +42,120 @@ const votingMachine = new THREE.Mesh(
 votingMachine.position.set(0, 0, 0);
 scene.add(votingMachine);
 
-const voteTube = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.2, 0.2, 6, 32),
-    new THREE.MeshBasicMaterial({ color: 0x00bfff, transparent: true, opacity: 0.3 })
-);
-voteTube.position.set(3, 0, 0);
-voteTube.rotation.z = Math.PI / 2;
-scene.add(voteTube);
-
-// Stage 4: Secure Vote Counting
 const vault = new THREE.Mesh(
     new THREE.BoxGeometry(3, 3, 3),
     new THREE.MeshPhongMaterial({ color: 0x00bfff, transparent: true, opacity: 0.5 })
 );
-vault.position.set(9, 0, 0);
+vault.position.set(8, 0, 0);
 scene.add(vault);
 
-const tallyBoard = new THREE.Mesh(
-    new THREE.PlaneGeometry(2, 1),
-    new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.7 })
-);
-tallyBoard.position.set(9, 2, 0.1);
-scene.add(tallyBoard);
-
-// Stage 5: Paper Verification
 const paperStack = new THREE.Mesh(
     new THREE.BoxGeometry(2, 1, 1),
     new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.8 })
 );
-paperStack.position.set(15, -0.5, 0);
+paperStack.position.set(14, -0.5, 0);
 scene.add(paperStack);
 
-const verifyBeam = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.1, 0.1, 3, 32),
-    new THREE.MeshBasicMaterial({ color: 0x00bfff, transparent: true, opacity: 0.5 })
-);
-verifyBeam.position.set(15, 0, 0);
-verifyBeam.rotation.z = Math.PI / 2;
-verifyBeam.visible = false;
-scene.add(verifyBeam);
+// Checkmarks
+const checkGeometry = new THREE.BufferGeometry();
+const checkVertices = new Float32Array([
+    -0.5, 0, 0, 0, 1, 0, 0.5, 0, 0 // Simple check shape
+]);
+checkGeometry.setAttribute('position', new THREE.BufferAttribute(checkVertices, 3));
+const checkMaterial = new THREE.LineBasicMaterial({ color: 0x00bfff, linewidth: 5 });
+const checks = [];
+const checkPositions = [-10, -5, 0, 8, 14];
+for (let i = 0; i < 5; i++) {
+    const check = new THREE.Line(checkGeometry, checkMaterial);
+    check.position.set(checkPositions[i], 2, 0);
+    check.scale.set(0, 0, 0); // Start hidden
+    checks.push(check);
+    scene.add(check);
+}
 
-// Controls
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
+// Animation State
+let stage = -1;
+let animTime = 0;
 
 // Animation Loop
-let time = 0;
 function animate() {
     requestAnimationFrame(animate);
-    time += 0.02;
 
-    // Stage 1: ID Card Spin
-    idCard.rotation.y += 0.02;
-    scanBeam.scale.y = 1 + Math.sin(time) * 0.5;
+    if (stage >= 0) animTime += 0.02;
 
-    // Stage 2: Watermark Pulse
-    watermark.scale.set(1 + Math.sin(time) * 0.1, 1 + Math.sin(time) * 0.1, 1);
+    // Stage 0: Voter Initiation
+    if (stage === 0 && animTime < 2) {
+        camera.position.lerp(new THREE.Vector3(-15, 5, 10), 0.05);
+        voter.scale.set(1 + Math.sin(animTime) * 0.1, 1 + Math.sin(animTime) * 0.1, 1 + Math.sin(animTime) * 0.1);
+    } else if (stage === 0 && animTime >= 2) {
+        stage = 1;
+        animTime = 0;
+        checks[0].scale.set(1, 1, 1);
+    }
 
-    // Stage 3: Voting Machine Glow
-    votingMachine.rotation.y += 0.01;
+    // Stage 1: Proof of Person
+    if (stage === 1 && animTime < 2) {
+        camera.position.lerp(new THREE.Vector3(-10, 5, 10), 0.05);
+        idCard.rotation.y += 0.05;
+        idCard.scale.set(1 + Math.sin(animTime) * 0.1, 1 + Math.sin(animTime) * 0.1, 1 + Math.sin(animTime) * 0.1);
+    } else if (stage === 1 && animTime >= 2) {
+        stage = 2;
+        animTime = 0;
+        checks[1].scale.set(1, 1, 1);
+    }
 
-    // Stage 4: Vault Pulse
-    vault.scale.set(1 + Math.sin(time) * 0.05, 1 + Math.sin(time) * 0.05, 1 + Math.sin(time) * 0.05);
+    // Stage 2: Watermarked Document
+    if (stage === 2 && animTime < 2) {
+        camera.position.lerp(new THREE.Vector3(-5, 5, 10), 0.05);
+        ballot.scale.set(1 + Math.sin(animTime) * 0.1, 1 + Math.sin(animTime) * 0.1, 1 + Math.sin(animTime) * 0.1);
+    } else if (stage === 2 && animTime >= 2) {
+        stage = 3;
+        animTime = 0;
+        checks[2].scale.set(1, 1, 1);
+    }
 
-    // Stage 5: Paper Stack Shuffle
-    paperStack.position.y = -0.5 + Math.sin(time) * 0.1;
+    // Stage 3: Secure Vote Casting
+    if (stage === 3 && animTime < 2) {
+        camera.position.lerp(new THREE.Vector3(0, 5, 10), 0.05);
+        votingMachine.rotation.y += 0.02;
+        votingMachine.scale.set(1 + Math.sin(animTime) * 0.1, 1 + Math.sin(animTime) * 0.1, 1 + Math.sin(animTime) * 0.1);
+    } else if (stage === 3 && animTime >= 2) {
+        stage = 4;
+        animTime = 0;
+        checks[3].scale.set(1, 1, 1);
+    }
 
-    controls.update();
+    // Stage 4: Secure Vote Counting
+    if (stage === 4 && animTime < 2) {
+        camera.position.lerp(new THREE.Vector3(8, 5, 10), 0.05);
+        vault.scale.set(1 + Math.sin(animTime) * 0.1, 1 + Math.sin(animTime) * 0.1, 1 + Math.sin(animTime) * 0.1);
+    } else if (stage === 4 && animTime >= 2) {
+        stage = 5;
+        animTime = 0;
+        checks[4].scale.set(1, 1, 1);
+    }
+
+    // Stage 5: Paper Verification
+    if (stage === 5 && animTime < 2) {
+        camera.position.lerp(new THREE.Vector3(14, 5, 10), 0.05);
+        paperStack.position.y = -0.5 + Math.sin(animTime) * 0.1;
+    } else if (stage === 5 && animTime >= 2) {
+        stage = 6; // End
+        animTime = 0;
+    }
+
     renderer.render(scene, camera);
 }
 animate();
 
-// Demo Vote Journey
-document.getElementById('vote-button').addEventListener('click', () => {
-    const demoBallot = new THREE.Mesh(
-        new THREE.BoxGeometry(0.5, 0.5, 0.5),
-        new THREE.MeshBasicMaterial({ color: 0x00bfff })
-    );
-    demoBallot.position.set(-12, 0, 0);
-    scene.add(demoBallot);
-
-    let stage = 0;
-    const voteAnim = () => {
-        if (stage === 0 && demoBallot.position.x < -6) {
-            demoBallot.position.x += 0.1; // Move to Watermark
-        } else if (stage === 0) {
-            stage = 1;
-            watermark.scale.set(1.5, 1.5, 1);
-            setTimeout(() => watermark.scale.set(1, 1, 1), 300);
-        } else if (stage === 1 && demoBallot.position.x < 0) {
-            demoBallot.position.x += 0.1; // Move to Casting
-        } else if (stage === 1) {
-            stage = 2;
-            votingMachine.scale.set(1.2, 1.2, 1.2);
-            setTimeout(() => votingMachine.scale.set(1, 1, 1), 300);
-        } else if (stage === 2 && demoBallot.position.x < 9) {
-            demoBallot.position.x += 0.1; // Move to Counting
-        } else if (stage === 2) {
-            stage = 3;
-            vault.scale.set(1.2, 1.2, 1.2);
-            setTimeout(() => vault.scale.set(1, 1, 1), 300);
-        } else if (stage === 3 && demoBallot.position.x < 15) {
-            demoBallot.position.x += 0.1; // Move to Verification
-        } else if (stage === 3) {
-            stage = 4;
-            verifyBeam.visible = true;
-            setTimeout(() => {
-                verifyBeam.visible = false;
-                scene.remove(demoBallot);
-            }, 500);
-        }
-        if (stage < 4) requestAnimationFrame(voteAnim);
-    };
-    voteAnim();
+// Start Demo
+document.getElementById('start-button').addEventListener('click', () => {
+    if (stage === -1 || stage === 6) {
+        stage = 0;
+        animTime = 0;
+        checks.forEach(check => check.scale.set(0, 0, 0)); // Reset checkmarks
+        camera.position.set(0, 10, 20); // Reset camera
+    }
 });
 
 // Interactivity
@@ -176,17 +167,26 @@ renderer.domElement.addEventListener('mousemove', (event) => {
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     raycaster.setFromCamera(mouse, camera);
 
-    const intersects = raycaster.intersectObjects([idCard, ballot, votingMachine, vault, paperStack]);
-    scanBeam.visible = intersects.some(i => i.object === idCard);
-    verifyBeam.visible = intersects.some(i => i.object === paperStack);
+    const intersects = raycaster.intersectObjects([voter, idCard, ballot, votingMachine, vault, paperStack]);
+    if (intersects.length > 0) {
+        document.body.style.cursor = 'pointer';
+    } else {
+        document.body.style.cursor = 'default';
+    }
 });
 
 renderer.domElement.addEventListener('click', () => {
-    const intersects = raycaster.intersectObjects([idCard, ballot, votingMachine, vault, paperStack]);
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects([voter, idCard, ballot, votingMachine, vault, paperStack]);
     if (intersects.length > 0) {
-        const target = intersects[0].object.position.clone();
-        target.z += 5; // Zoom in
-        camera.position.lerp(target, 0.1);
+        const target = intersects[0].object;
+        if (target === voter) stage = 0;
+        else if (target === idCard) stage = 1;
+        else if (target === ballot) stage = 2;
+        else if (target === votingMachine) stage = 3;
+        else if (target === vault) stage = 4;
+        else if (target === paperStack) stage = 5;
+        animTime = 0;
     }
 });
 
