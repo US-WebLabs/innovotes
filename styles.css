@@ -1,254 +1,65 @@
-/* Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-}
 body {
-    line-height: 1.6;
-    color: #333;
-    background: #2a2a2a; /* Matches the dark gray background of the logo */
-}
-
-/* Header */
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: #003366;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-.logo-container {
-    display: flex;
-    align-items: center;
-}
-.main-logo {
-    height: 50px;
-    max-width: 50px;
-    margin-right: 1rem;
-}
-.brand-text {
-    font-family: 'Comic Neue', cursive;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #fff;
-    text-shadow: 2px 2px 4px #000, 0 0 10px #00f, 0 0 20px #0ff;
     margin: 0;
-}
-nav a {
-    color: white;
-    margin: 0 1.5rem;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-nav a:hover { color: #C0C0C0; }
-.cta-btn {
-    background: #FF0000;
-    color: white;
-    padding: 0.7rem 1.5rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-.cta-btn:hover { background: #CC0000; }
-
-/* Hero Section with Three.js */
-#hero {
-    height: 100vh;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
     overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: #0a0a23; /* Dark blue for a techy, trustworthy vibe */
+    color: #fff;
 }
-#three-canvas {
+
+#scene-container {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    top: 0;
+    left: 0;
 }
-.hero-content {
+
+.overlay {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
     z-index: 1;
 }
-.hero-content h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
-}
-.hero-text {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+
+h1 {
+    font-size: 3em;
+    color: #ffd700; /* Gold for a patriotic, premium feel */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
 }
 
-/* Features Section */
-#features {
-    padding: 5rem 2rem;
-    text-align: center;
-    background: #fff;
-}
-#features h2 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-}
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-.feature-card {
-    padding: 2rem;
-    background: #f4f4f4;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+p {
+    font-size: 1.5em;
+    margin: 10px 0;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
-/* How It Works Section */
-#how-it-works {
-    padding: 5rem 2rem;
-    background: #003366;
-    color: white;
-    text-align: center;
-}
-#how-it-works h2 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-}
-.steps {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-.step {
-    flex: 1;
-    min-width: 200px;
-    padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    animation: fadeIn 1s ease-in;
-}
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-/* Trust Section */
-#trust {
-    padding: 5rem 2rem;
-    text-align: center;
-}
-#trust h2 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-}
-.trust-grid {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-.trust-item {
-    flex: 1;
-    min-width: 200px;
-}
-
-/* About Section */
-#about {
-    padding: 5rem 2rem;
-    text-align: center;
-    background: #f4f4f4;
-}
-#about h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-/* Contact Section */
-#contact {
-    padding: 5rem 2rem;
-    text-align: center;
-    background: #fff;
-}
-#contact h2 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-}
-#contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-#contact-form input, #contact-form textarea {
-    padding: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-#contact-form button {
-    background: #FF0000;
-    color: white;
-    padding: 1rem;
+#cta-button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    background: #ff0000; /* Red for boldness */
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
 }
-#contact-form button:hover { background: #CC0000; }
 
-/* Footer */
+#cta-button:hover {
+    background: #ffd700;
+    color: #0a0a23;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.9);
+}
+
 footer {
-    padding: 2rem;
-    background: #2a2a2a;
-    color: white;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
     text-align: center;
-    font-size: 0.9rem;
-}
-footer a {
-    color: #C0C0C0;
-    text-decoration: none;
-}
-.partnership {
-    margin: 1rem 0;
-}
-.ddc-footer-logo {
-    height: 60px;
-    margin: 0.5rem auto;
-    display: block;
-}
-.back-to-top {
-    display: block;
-    margin-top: 0.5rem;
-    color: #C0C0C0;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-.back-to-top:hover { color: white; }
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hero-content h1 { font-size: 2rem; }
-    .hero-text { font-size: 1rem; }
-    header { flex-direction: column; padding: 0.5rem; }
-    .logo-container { margin-bottom: 1rem; }
-    .main-logo { margin-right: 0; }
-    .brand-text { font-size: 1.5rem; }
-    nav a { margin: 0 1rem; }
-    .feature-grid, .steps, .trust-grid { flex-direction: column; align-items: center; }
-    .feature-card, .step, .trust-item { width: 100%; }
+    font-size: 0.9em;
+    color: #ccc;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
