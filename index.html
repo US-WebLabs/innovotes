@@ -3,127 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Innovotes - Revolutionizing Voting</title>
+    <title>Innovotes - Modernizing Voting Globally</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,700&family=Montserrat:wght@400;700;700i&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="logo-container">
-            <img src="logo.png" alt="Innovotes Logo" class="main-logo">
-            <h1 class="brand-text">Innovotes</h1>
-        </div>
-        <nav>
-            <a href="#features">Features</a>
-            <a href="#how-it-works">How It Works</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-        </nav>
-        <button class="cta-btn">Get Involved</button>
-    </header>
-
-    <!-- Hero Section with Three.js -->
-    <section id="hero">
-        <canvas id="three-canvas"></canvas>
-        <div class="hero-content">
-            <h1>Revolutionizing Voting for the Future</h1>
-            <p class="hero-text">Innovotes brings secure, transparent, and accessible voting to every American.</p>
-            <button class="cta-btn" onclick="scrollToSection('features')">See How It Works</button>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features">
-        <h2>Why Choose Innovotes?</h2>
-        <div class="feature-grid">
-            <article class="feature-card">
-                <h3>Watermarked Ballots</h3>
-                <p>Tamper-proof security for every vote.</p>
-            </article>
-            <article class="feature-card">
-                <h3>Same Day Voting</h3>
-                <p>Fast, efficient participation for all.</p>
-            </article>
-            <article class="feature-card">
-                <h3>Voter Verification</h3>
-                <p>Secure ID checks for eligibility.</p>
-            </article>
-            <article class="feature-card">
-                <h3>Proof of Citizenship</h3>
-                <p>Ensuring only eligible citizens vote.</p>
-            </article>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section id="how-it-works">
-        <h2>The Innovotes Process</h2>
-        <div class="steps">
-            <div class="step">
-                <h3>1. Voter Registration</h3>
-                <p>Verify your identity securely with photo ID and proof of citizenship.</p>
-            </div>
-            <div class="step">
-                <h3>2. Ballot Issuance</h3>
-                <p>Receive a unique, watermarked paper ballot.</p>
-            </div>
-            <div class="step">
-                <h3>3. Casting Your Vote</h3>
-                <p>Vote on the same day in a tamper-proof booth.</p>
-            </div>
-            <div class="step">
-                <h3>4. Secure Counting</h3>
-                <p>Accurate results with dual verification.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Trust Section -->
-    <section id="trust">
-        <h2>Built on Trust and Innovation</h2>
-        <div class="trust-grid">
-            <div class="trust-item">
-                <h3>99.9%</h3>
-                <p>Vote accuracy rate</p>
-            </div>
-            <div class="trust-item">
-                <blockquote>"A game-changer for election integrity."</blockquote>
-                <p>- Election Official</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
-        <h2>Our Mission</h2>
-        <p>Innovotes is committed to secure, ethical voting solutions that empower communities and uphold democracy.</p>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <h2>Get in Touch</h2>
-        <form id="contact-form">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-            <button type="submit">Send</button>
-        </form>
-    </section>
-
-    <!-- Footer -->
+    <div id="scene-container"></div>
+    <div class="overlay">
+        <h1>Innovotes</h1>
+        <p>Modernizing Voting with Trust, Technology, and Transparency</p>
+        <button id="cta-button">Join the Future of Voting</button>
+    </div>
     <footer>
-        <p>© 2025 Innovotes. All rights reserved. | <a href="#">Privacy Policy</a></p>
-        <div class="partnership">
-            <p>Proudly developed in partnership with <strong>U.S. Web Labs</strong> and</p>
-            <img src="DDC_Logo.svg" alt="DDC Corporation Logo" class="ddc-footer-logo">
-            <p><strong>DDC Corporation</strong> to bring Innovotes to life.</p>
-        </div>
-        <a href="#" class="back-to-top">Back to Top</a>
+        <p>Endorsed by Leaders in Voting Integrity | Powered by xAI</p>
     </footer>
 
-    <!-- Three.js Library -->
+    <!-- Three.js and OrbitControls CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="scripts.js"></script>
+    <script src="https://unpkg.com/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
