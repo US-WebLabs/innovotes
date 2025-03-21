@@ -194,7 +194,7 @@ function initText() {
         voter: "Step 1: Start the Process\nInnovotes begins with a secure voter entry point.",
         proof: "Step 2: Verify Your Identity\nOnly authorized voters proceed with advanced ID checks.",
         watermark: "Step 3: Get Your Secure Ballot\nReceive a tamper-proof ballot with a unique watermark.",
-        casting: "Step 4: Cast Your Vote Safely\nYour vote is encrypted and sent securely.",
+        casting: "Step 4: Cast Your Vote Safely\nYour vote is encrypted and stored securely.",
         counting: "Step 5: See Your Vote Counted\nTransparent, real-time tallying ensures accuracy.",
         verification: "Step 6: Confirm with Paper Backup\nA paper trail verifies the digital count."
     };
