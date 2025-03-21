@@ -2,7 +2,7 @@ body {
     margin: 0;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #2a2a72, #009ffd); /* Darker gradient for contrast */
+    background: linear-gradient(135deg, #1a2526, #0a0f12); /* Matches logo's dark grayish-blue to black gradient */
     color: #ffffff;
 }
 
@@ -24,10 +24,23 @@ body {
     pointer-events: none;
 }
 
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* Space between logo and title */
+}
+
+.logo {
+    width: 80px; /* Adjust size as needed */
+    height: 80px;
+}
+
 h1 {
     font-size: 4.5em;
     color: #ffffff;
     text-shadow: 0 0 20px rgba(0, 191, 255, 0.9), 0 0 40px rgba(0, 0, 0, 0.7);
+    margin: 0; /* Remove default margin for alignment */
 }
 
 p {
