@@ -1,128 +1,91 @@
-// Three.js Setup
+// Scene Setup
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor(0x2a2a2a, 1); // Match logo background
+document.getElementById('scene-container').appendChild(renderer.domElement);
 
 // Camera Position
-camera.position.set(0, 5, 15);
+camera.position.z = 15;
 
 // Lighting
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
 directionalLight.position.set(5, 5, 5);
 scene.add(directionalLight);
 
-// Voting Box
-const boxGeometry = new THREE.BoxGeometry(2, 2, 2);
-const boxMaterial = new THREE.MeshPhongMaterial({ color: 0x003366, shininess: 100 });
-const votingBox = new THREE.Mesh(boxGeometry, boxMaterial);
-votingBox.position.set(0, -5, 0); // Position below the map
-scene.add(votingBox);
+// Globe
+const globeGeometry = new THREE.SphereGeometry(5, 64, 64);
+const globeMaterial = new THREE.MeshPhongMaterial({
+    color: 0x1e90ff, // Blue base for Earth
+    shininess: 100,
+    wireframe: false
+});
+const globe = new THREE.Mesh(globeGeometry, globeMaterial);
+scene.add(globe);
 
-// Slot on Top of Voting Box
-const slotGeometry = new THREE.BoxGeometry(1.6, 0.1, 0.4);
-const slotMaterial = new THREE.MeshPhongMaterial({ color: 0x002244 });
-const slot = new THREE.Mesh(slotGeometry, slotMaterial);
-slot.position.y = 1.05;
-votingBox.add(slot);
+// US Highlight (Simplified as a glowing ring)
+const usRingGeometry = new THREE.RingGeometry(5.1, 5.2, 64);
+const usRingMaterial = new THREE.MeshBasicMaterial({ color: 0xffd700, side: THREE.DoubleSide });
+const usRing = new THREE.Mesh(usRingGeometry, usRingMaterial);
+usRing.rotation.x = Math.PI / 2;
+scene.add(usRing);
 
-// Simplified U.S. Map Outline (Approximated with Spheres)
-const sphereGeometry = new THREE.SphereGeometry(0.1, 32, 32);
-const sphereMaterial = new THREE.MeshPhongMaterial({ color: 0xC0C0C0, shininess: 50 });
-const spheres = [];
+// Particle System
+const particleCount = 2000;
+const particles = new THREE.BufferGeometry();
+const positions = new Float32Array(particleCount * 3);
+const colors = new Float32Array(particleCount * 3);
 
-// Approximate U.S. map using a grid of spheres
-const usMapPoints = [];
-const mapWidth = 20;
-const mapHeight = 10;
-for (let x = -mapWidth / 2; x < mapWidth / 2; x += 0.5) {
-    for (let z = -mapHeight / 2; z < mapHeight / 2; z += 0.5) {
-        // Simplified U.S. shape (excluding Hawaii/Alaska for simplicity)
-        if (
-            (x > -10 && x < 10 && z > -5 && z < 5) && // Mainland U.S.
-            !(x > -2 && x < 2 && z > 3) && // Remove Great Lakes area
-            !(x < -8 && z > 2) && // Remove northwest corner
-            !(x > 8 && z < -2) // Remove southeast corner
-        ) {
-            usMapPoints.push(new THREE.Vector3(x, 0, z));
-        }
-    }
+for (let i = 0; i < particleCount; i++) {
+    positions[i * 3] = (Math.random() - 0.5) * 30; // x
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 30; // y
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 30; // z
+
+    // Red, white, blue particles
+    const colorChoice = i % 3;
+    colors[i * 3] = colorChoice === 0 ? 1 : 0; // r
+    colors[i * 3 + 1] = colorChoice === 1 ? 1 : 0; // g
+    colors[i * 3 + 2] = colorChoice === 2 ? 1 : 0; // b
 }
 
-// Create Spheres (Voters)
-usMapPoints.forEach((point, index) => {
-    const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-    sphere.position.set(
-        Math.random() * 30 - 15, // Random initial position
-        Math.random() * 10 + 5,
-        Math.random() * 30 - 15
-    );
-    sphere.targetPosition = point; // Target position on the map
-    sphere.scale.set(0, 0, 0); // Start invisible
-    spheres.push(sphere);
-    scene.add(sphere);
-});
+particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+const particleMaterial = new THREE.PointsMaterial({ size: 0.1, vertexColors: true });
+const particleSystem = new THREE.Points(particles, particleMaterial);
+scene.add(particleSystem);
 
-// Animation Timeline
-let animationPhase = 0; // 0: Form map, 1: Move to voting box, 2: Zoom into box
-let animationProgress = 0;
+// Holographic Panels (Simplified as planes)
+const panelGeometry = new THREE.PlaneGeometry(3, 1.5);
+const panelMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.7, side: THREE.DoubleSide });
 
-// Animate Spheres
-function animateSpheres() {
-    if (animationPhase === 0) {
-        // Phase 0: Form the U.S. map
-        animationProgress += 0.02;
-        spheres.forEach(sphere => {
-            sphere.position.lerp(sphere.targetPosition, 0.05);
-            sphere.scale.lerp(new THREE.Vector3(1, 1, 1), 0.05);
-        });
-        if (animationProgress >= 1) {
-            animationPhase = 1;
-            animationProgress = 0;
-        }
-    } else if (animationPhase === 1) {
-        // Phase 1: Move spheres to voting box
-        animationProgress += 0.01;
-        spheres.forEach(sphere => {
-            const target = new THREE.Vector3(0, -5, 0); // Center of voting box
-            sphere.position.lerp(target, 0.03);
-            if (sphere.position.distanceTo(target) < 0.5) {
-                sphere.visible = false; // Disappear into the box
-            }
-        });
-        if (animationProgress >= 1) {
-            animationPhase = 2;
-            animationProgress = 0;
-        }
-    } else if (animationPhase === 2) {
-        // Phase 2: Zoom into voting box (controlled by scroll)
-        votingBox.rotation.y += 0.01;
-    }
-}
+const panel1 = new THREE.Mesh(panelGeometry, panelMaterial);
+panel1.position.set(7, 2, 0);
+scene.add(panel1);
 
-// Scroll Interaction
-let scrollProgress = 0;
-window.addEventListener('scroll', () => {
-    const heroSection = document.getElementById('hero');
-    const featuresSection = document.getElementById('features');
-    const heroBottom = heroSection.getBoundingClientRect().bottom;
-    scrollProgress = Math.min(1, Math.max(0, 1 - heroBottom / window.innerHeight));
+const panel2 = new THREE.Mesh(panelGeometry, panelMaterial);
+panel2.position.set(-7, 2, 0);
+scene.add(panel2);
 
-    if (animationPhase === 2) {
-        // Zoom camera into voting box
-        camera.position.lerp(new THREE.Vector3(0, 0, 5), scrollProgress * 0.05);
-        camera.lookAt(votingBox.position);
-        votingBox.rotation.y += scrollProgress * 0.02;
-    }
-});
+// Orbit Controls
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
 
 // Animation Loop
 function animate() {
     requestAnimationFrame(animate);
-    animateSpheres();
+
+    // Rotate globe and particles
+    globe.rotation.y += 0.005;
+    particleSystem.rotation.y += 0.002;
+
+    // Animate panels (hover effect simulation)
+    panel1.rotation.y += 0.01;
+    panel2.rotation.y -= 0.01;
+
+    controls.update();
     renderer.render(scene, camera);
 }
 animate();
@@ -134,23 +97,8 @@ window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// Smooth Scrolling
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
-
-function scrollToSection(sectionId) {
-    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-}
-
-// Form Submission Alert
-document.getElementById('contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    alert('Thank you for your message! We will get back to you soon.');
-    this.reset();
+// CTA Button Interaction
+document.getElementById('cta-button').addEventListener('click', () => {
+    alert('Welcome to the Future of Voting! Sign up coming soon.');
+    // Could transition to a form or video here
 });
