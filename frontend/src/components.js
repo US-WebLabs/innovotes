@@ -66,7 +66,8 @@ export const NavigationTabs = ({ activeCategory, setActiveCategory }) => {
     { id: 'healthcare', name: 'Healthcare', icon: '🏥' },
     { id: 'defense', name: 'Defense & Security', icon: '🛡️' },
     { id: 'energy', name: 'Energy', icon: '⚡' },
-    { id: 'social', name: 'Social Programs', icon: '🤝' }
+    { id: 'social', name: 'Social Programs', icon: '🤝' },
+    { id: 'technology', name: 'Technology', icon: '💻' }
   ];
 
   return (
