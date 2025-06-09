@@ -168,8 +168,70 @@ const generateMockPolicies = () => {
     { title: "Workforce Development Restructuring", description: "Combine job training and employment services into state-managed programs.", impactLevel: "Medium - Employment services" }
   ];
 
-  // TECHNOLOGY & EDUCATION (25 policies)
-  const educationTechPolicies = [
+  // INFRASTRUCTURE & TRANSPORTATION (20 policies)
+  const infrastructurePolicies = [
+    { title: "National Infrastructure Investment", description: "Allocate $500B for roads, bridges, airports, and public transportation over 10 years.", impactLevel: "High - National infrastructure overhaul" },
+    { title: "High-Speed Rail Development", description: "Fund construction of high-speed rail corridors connecting major metropolitan areas.", impactLevel: "High - $200B rail investment" },
+    { title: "Airport Modernization Program", description: "Upgrade airport facilities and air traffic control systems nationwide.", impactLevel: "Medium - Aviation infrastructure" },
+    { title: "Bridge Replacement Initiative", description: "Replace structurally deficient bridges across the United States.", impactLevel: "High - 45,000 bridges affected" },
+    { title: "Rural Road Improvement", description: "Improve rural road conditions and connectivity to urban centers.", impactLevel: "Medium - Rural transportation" },
+    { title: "Port Modernization Project", description: "Upgrade seaports for increased cargo capacity and efficiency.", impactLevel: "Medium - Maritime commerce" },
+    { title: "Public Transit Expansion", description: "Expand bus rapid transit and light rail systems in metropolitan areas.", impactLevel: "High - Urban mobility" },
+    { title: "Electric Vehicle Charging Network", description: "Build comprehensive EV charging infrastructure along major highways.", impactLevel: "High - Clean transportation" },
+    { title: "Water Infrastructure Renewal", description: "Replace aging water pipes and treatment facilities nationwide.", impactLevel: "High - Water security" },
+    { title: "Telecommunications Infrastructure", description: "Expand fiber optic networks and improve cellular coverage in rural areas.", impactLevel: "Medium - Digital connectivity" },
+    { title: "Freight Rail Modernization", description: "Upgrade freight rail systems to improve cargo transportation efficiency.", impactLevel: "Medium - Logistics improvement" },
+    { title: "Smart Traffic Systems", description: "Implement intelligent transportation systems to reduce congestion.", impactLevel: "Medium - Traffic management" },
+    { title: "Bike and Pedestrian Infrastructure", description: "Build bike lanes and pedestrian-friendly infrastructure in cities.", impactLevel: "Low - Active transportation" },
+    { title: "Inland Waterway Maintenance", description: "Modernize locks, dams, and inland waterway transportation systems.", impactLevel: "Medium - River commerce" },
+    { title: "Transportation Resilience Program", description: "Strengthen transportation infrastructure against natural disasters.", impactLevel: "Medium - Climate adaptation" },
+    { title: "Autonomous Vehicle Preparation", description: "Prepare infrastructure for autonomous vehicle deployment.", impactLevel: "Medium - Future transportation" },
+    { title: "Rural Broadband Expansion", description: "Extend high-speed internet access to underserved rural communities.", impactLevel: "High - Digital inclusion" },
+    { title: "Emergency Transportation Systems", description: "Improve emergency response and evacuation transportation capabilities.", impactLevel: "Medium - Public safety" },
+    { title: "Cross-Border Infrastructure", description: "Improve transportation infrastructure at international border crossings.", impactLevel: "Medium - Trade facilitation" },
+    { title: "Transportation Workforce Development", description: "Train workers for infrastructure construction and maintenance jobs.", impactLevel: "Medium - Job creation" }
+  ];
+
+  // AGRICULTURE & RURAL DEVELOPMENT (15 policies)
+  const agriculturePolicies = [
+    { title: "Farm Subsidy Reform", description: "Restructure agricultural subsidies to support sustainable farming practices.", impactLevel: "High - 2M farms affected" },
+    { title: "Crop Insurance Enhancement", description: "Expand federal crop insurance coverage for climate-related losses.", impactLevel: "Medium - Risk management" },
+    { title: "Rural Hospital Support", description: "Provide federal funding to maintain essential rural healthcare facilities.", impactLevel: "High - Rural healthcare access" },
+    { title: "Agricultural Research Investment", description: "Increase funding for agricultural research and development programs.", impactLevel: "Medium - Innovation support" },
+    { title: "Food Safety Modernization", description: "Strengthen food safety regulations and inspection capabilities.", impactLevel: "High - Consumer protection" },
+    { title: "Rural Economic Development", description: "Support rural business development and entrepreneurship programs.", impactLevel: "Medium - Economic diversification" },
+    { title: "Conservation Program Expansion", description: "Expand programs that pay farmers for environmental conservation practices.", impactLevel: "Medium - Environmental stewardship" },
+    { title: "Agricultural Trade Promotion", description: "Increase support for agricultural exports and trade promotion.", impactLevel: "Medium - Export competitiveness" },
+    { title: "Beginning Farmer Support", description: "Provide loans and assistance for new and beginning farmers.", impactLevel: "Medium - Next generation farmers" },
+    { title: "Livestock Industry Modernization", description: "Support modernization of livestock facilities and practices.", impactLevel: "Medium - Animal agriculture" },
+    { title: "Agricultural Technology Adoption", description: "Incentivize adoption of precision agriculture and modern farming technology.", impactLevel: "Medium - Farm productivity" },
+    { title: "Rural Infrastructure Investment", description: "Improve rural roads, utilities, and communication infrastructure.", impactLevel: "High - Rural connectivity" },
+    { title: "Farm Worker Protection", description: "Strengthen protections and benefits for agricultural workers.", impactLevel: "Medium - Worker rights" },
+    { title: "Sustainable Agriculture Incentives", description: "Provide incentives for organic farming and sustainable practices.", impactLevel: "Medium - Environmental benefits" },
+    { title: "Agricultural Emergency Response", description: "Improve disaster response and recovery assistance for farmers.", impactLevel: "Medium - Crisis management" }
+  ];
+
+  // IMMIGRATION & BORDER SECURITY (18 policies)
+  const immigrationPolicies = [
+    { title: "Border Security Enhancement", description: "Increase border patrol agents and surveillance technology along all U.S. borders.", impactLevel: "High - Border security" },
+    { title: "Immigration Court Expansion", description: "Hire additional immigration judges to reduce case backlogs.", impactLevel: "High - Legal processing" },
+    { title: "E-Verify Mandate", description: "Require all employers to use E-Verify system for employment eligibility verification.", impactLevel: "High - Employment verification" },
+    { title: "DACA Program Termination", description: "End the Deferred Action for Childhood Arrivals program.", impactLevel: "High - 640K recipients affected" },
+    { title: "Asylum Process Reform", description: "Implement stricter standards and faster processing for asylum claims.", impactLevel: "High - Asylum system" },
+    { title: "Legal Immigration Reduction", description: "Reduce annual legal immigration levels by 50% over five years.", impactLevel: "High - Immigration levels" },
+    { title: "Sanctuary City Funding Cuts", description: "Eliminate federal funding for cities that don't cooperate with immigration enforcement.", impactLevel: "Medium - Local law enforcement" },
+    { title: "Deportation Enforcement Expansion", description: "Increase resources for locating and deporting undocumented immigrants.", impactLevel: "High - Immigration enforcement" },
+    { title: "Family Separation Policy", description: "Implement strict family separation for immigration violations.", impactLevel: "High - Family unity" },
+    { title: "Immigration Detention Expansion", description: "Build additional immigration detention facilities nationwide.", impactLevel: "Medium - Detention capacity" },
+    { title: "Birthright Citizenship Challenge", description: "Challenge birthright citizenship through constitutional amendment.", impactLevel: "High - Constitutional change" },
+    { title: "Visa Program Restrictions", description: "Implement additional restrictions on various visa programs.", impactLevel: "Medium - Legal immigration" },
+    { title: "Refugee Admission Reduction", description: "Reduce annual refugee admissions to 15,000 per year.", impactLevel: "High - Humanitarian protection" },
+    { title: "Immigration Benefits Restrictions", description: "Limit access to public benefits for legal immigrants.", impactLevel: "Medium - Immigrant integration" },
+    { title: "Border Wall Technology", description: "Deploy advanced technology and sensors along border barriers.", impactLevel: "Medium - Border monitoring" },
+    { title: "Interior Enforcement Operations", description: "Expand workplace raids and interior immigration enforcement.", impactLevel: "High - Undocumented population" },
+    { title: "Immigration Appeal Process Changes", description: "Limit appeals and expedite immigration case processing.", impactLevel: "Medium - Due process" },
+    { title: "International Immigration Cooperation", description: "Increase cooperation with other countries on immigration enforcement.", impactLevel: "Medium - International relations" }
+  ];
     { title: "10-Year AI Regulation Moratorium", description: "Prevent states from enforcing artificial intelligence regulations for 10 years to promote innovation.", impactLevel: "Medium - Federal preemption policy" },
     { title: "School Choice Expansion", description: "Establish federal education savings accounts for private school tuition and educational expenses.", impactLevel: "High - $10B voucher program" },
     { title: "Student Loan Forgiveness Elimination", description: "Eliminate all federal student loan forgiveness programs including Public Service Loan Forgiveness.", impactLevel: "High - 45M borrowers affected" },
