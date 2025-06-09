@@ -168,7 +168,7 @@ const generateMockPolicies = () => {
     { title: "Workforce Development Restructuring", description: "Combine job training and employment services into state-managed programs.", impactLevel: "Medium - Employment services" }
   ];
 
-  // EDUCATION & TECHNOLOGY (18 policies)
+  // TECHNOLOGY & EDUCATION (25 policies)
   const educationTechPolicies = [
     { title: "10-Year AI Regulation Moratorium", description: "Prevent states from enforcing artificial intelligence regulations for 10 years to promote innovation.", impactLevel: "Medium - Federal preemption policy" },
     { title: "School Choice Expansion", description: "Establish federal education savings accounts for private school tuition and educational expenses.", impactLevel: "High - $10B voucher program" },
@@ -187,7 +187,14 @@ const generateMockPolicies = () => {
     { title: "Special Education Funding Changes", description: "Convert federal special education funding to block grants with reduced oversight.", impactLevel: "High - 7M students affected" },
     { title: "Teacher Preparation Program Reform", description: "Eliminate federal oversight of teacher preparation programs in universities.", impactLevel: "Medium - Teacher education" },
     { title: "Educational Technology Investment", description: "Fund deployment of educational technology in K-12 schools nationwide.", impactLevel: "Medium - Digital learning" },
-    { title: "Adult Education Program Cuts", description: "Reduce federal funding for adult basic education and literacy programs.", impactLevel: "Medium - Adult learners" }
+    { title: "Adult Education Program Cuts", description: "Reduce federal funding for adult basic education and literacy programs.", impactLevel: "Medium - Adult learners" },
+    { title: "Digital Divide Elimination", description: "Ensure all students have access to high-speed internet and devices for learning.", impactLevel: "High - Educational equity" },
+    { title: "Vocational Training Expansion", description: "Increase funding for trade schools and vocational training programs.", impactLevel: "Medium - Skills development" },
+    { title: "Charter School Authorization", description: "Remove barriers to charter school establishment and expand funding options.", impactLevel: "High - School choice" },
+    { title: "Higher Education Accountability", description: "Implement stricter accountability measures for colleges and universities receiving federal funding.", impactLevel: "High - Higher education quality" },
+    { title: "Student Privacy Protection", description: "Strengthen data protection laws for student educational records and information.", impactLevel: "Medium - Student rights" },
+    { title: "Early Childhood Education Reform", description: "Restructure federal early childhood education programs and funding mechanisms.", impactLevel: "High - Early learning" },
+    { title: "Digital Literacy Requirements", description: "Establish federal standards for digital literacy education in K-12 curricula.", impactLevel: "Medium - 21st century skills" }
   ];
 
   // Combine all policies with IDs and common properties
