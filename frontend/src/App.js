@@ -199,45 +199,37 @@ const generateMockPolicies = () => {
 
   // Combine all policies with IDs and common properties
   let id = 1;
-  
-  [...taxationPolicies, ...healthcarePolicies, ...defensePolicies, ...energyPolicies, ...socialPolicies, ...educationTechPolicies].forEach(policy => {
-    const votes = generateVotes();
-    let category, categoryName, image;
-    
-    if (id <= 25) {
-      category = "taxation"; categoryName = "Taxation";
-      image = "https://images.pexels.com/photos/4386367/pexels-photo-4386367.jpeg";
-    } else if (id <= 47) {
-      category = "healthcare"; categoryName = "Healthcare";
-      image = "https://images.pexels.com/photos/7163956/pexels-photo-7163956.jpeg";
-    } else if (id <= 71) {
-      category = "defense"; categoryName = "Defense & Security";
-      image = "https://images.pexels.com/photos/12199410/pexels-photo-12199410.jpeg";
-    } else if (id <= 89) {
-      category = "energy"; categoryName = "Energy";
-      image = "https://images.unsplash.com/photo-1572449210329-d0bd8b8582f6";
-    } else if (id <= 109) {
-      category = "social"; categoryName = "Social Programs";
-      image = "https://images.pexels.com/photos/1550337/pexels-photo-1550337.jpeg";
-    } else {
-      category = "technology"; categoryName = "Technology";
-      image = "https://images.unsplash.com/photo-1547067592-463a85de7fd1";
-    }
-    
-    policies.push({
-      id,
-      title: policy.title,
-      description: policy.description,
-      category,
-      categoryName,
-      image,
-      supportVotes: votes.supportVotes,
-      opposeVotes: votes.opposeVotes,
-      endDate,
-      impactLevel: policy.impactLevel
+  const allPolicyArrays = [
+    { policies: taxationPolicies, category: "taxation", categoryName: "Taxation", image: "https://images.pexels.com/photos/4386367/pexels-photo-4386367.jpeg" },
+    { policies: healthcarePolicies, category: "healthcare", categoryName: "Healthcare", image: "https://images.pexels.com/photos/7163956/pexels-photo-7163956.jpeg" },
+    { policies: defensePolicies, category: "defense", categoryName: "Defense & Security", image: "https://images.pexels.com/photos/12199410/pexels-photo-12199410.jpeg" },
+    { policies: energyPolicies, category: "energy", categoryName: "Energy", image: "https://images.unsplash.com/photo-1572449210329-d0bd8b8582f6" },
+    { policies: socialPolicies, category: "social", categoryName: "Social Programs", image: "https://images.pexels.com/photos/1550337/pexels-photo-1550337.jpeg" },
+    { policies: educationTechPolicies, category: "technology", categoryName: "Technology", image: "https://images.unsplash.com/photo-1547067592-463a85de7fd1" },
+    { policies: infrastructurePolicies, category: "infrastructure", categoryName: "Infrastructure", image: "https://images.pexels.com/photos/1550337/pexels-photo-1550337.jpeg" },
+    { policies: agriculturePolicies, category: "agriculture", categoryName: "Agriculture", image: "https://images.pexels.com/photos/4386367/pexels-photo-4386367.jpeg" },
+    { policies: immigrationPolicies, category: "immigration", categoryName: "Immigration", image: "https://images.pexels.com/photos/12199410/pexels-photo-12199410.jpeg" }
+  ];
+
+  allPolicyArrays.forEach(({ policies: policyArray, category, categoryName, image }) => {
+    policyArray.forEach(policy => {
+      const votes = generateVotes();
+      
+      policies.push({
+        id,
+        title: policy.title,
+        description: policy.description,
+        category,
+        categoryName,
+        image,
+        supportVotes: votes.supportVotes,
+        opposeVotes: votes.opposeVotes,
+        endDate,
+        impactLevel: policy.impactLevel
+      });
+      
+      id++;
     });
-    
-    id++;
   });
   
   return policies;
