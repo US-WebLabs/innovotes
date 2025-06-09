@@ -113,7 +113,7 @@ const generateMockPolicies = () => {
     { title: "International Defense Cooperation", description: "Strengthen defense partnerships and joint training exercises with allies.", impactLevel: "Medium - Global alliances" }
   ];
 
-  // ENERGY POLICIES (18 policies)
+  // ENERGY POLICIES (22 policies)
   const energyPolicies = [
     { title: "Clean Energy Tax Credit Repeal", description: "Eliminate tax incentives for solar, wind, and other renewable energy installations from the Inflation Reduction Act.", impactLevel: "High - $369B program elimination" },
     { title: "Electric Vehicle Incentive Elimination", description: "Remove federal tax credits for electric vehicle purchases, including the $7,500 EV tax credit.", impactLevel: "Medium - $7.5B annual program" },
@@ -132,7 +132,11 @@ const generateMockPolicies = () => {
     { title: "Energy Efficiency Standards Rollback", description: "Eliminate energy efficiency standards for appliances and industrial equipment.", impactLevel: "Medium - Regulatory relief" },
     { title: "Carbon Capture Technology", description: "Fund development of carbon capture and storage technology for fossil fuel plants.", impactLevel: "Medium - $8B technology program" },
     { title: "Biofuel Production Incentives", description: "Expand incentives for ethanol and biodiesel production from domestic sources.", impactLevel: "Medium - Agricultural energy sector" },
-    { title: "Energy Transportation Infrastructure", description: "Improve pipelines, transmission lines, and energy transportation networks.", impactLevel: "High - $45B infrastructure" }
+    { title: "Energy Transportation Infrastructure", description: "Improve pipelines, transmission lines, and energy transportation networks.", impactLevel: "High - $45B infrastructure" },
+    { title: "Offshore Drilling Expansion", description: "Open new offshore areas for oil and gas exploration along U.S. coasts.", impactLevel: "High - Energy production" },
+    { title: "Renewable Energy Permitting Reform", description: "Streamline federal permitting processes for renewable energy projects on public lands.", impactLevel: "Medium - Project development" },
+    { title: "Hydroelectric Power Modernization", description: "Upgrade existing hydroelectric facilities and remove barriers to new construction.", impactLevel: "Medium - Renewable baseload" },
+    { title: "Energy Research and Development", description: "Increase federal funding for energy innovation and breakthrough technologies.", impactLevel: "Medium - Technology advancement" }
   ];
 
   // SOCIAL PROGRAMS (20 policies)
