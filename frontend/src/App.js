@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import './App.css';
-import { Header, NavigationTabs, PolicyCard, HeroSection, StatsSection, Footer } from './components';
+import { BrowserRouter, Routes, Route, useParams, useNavigate } from 'react-router-dom';
+import { Header, NavigationTabs, PolicyCard, HeroSection, StatsSection, Footer, HowItWorksPage, SignUpPage, LoginPage, NotFoundPage } from './components';
 
-// Complete Mock Policy Data based on Big Beautiful Bill (127 policies)
+// Complete Mock Policy Data based on Big Beautiful Bill (200+ policies)
 const generateMockPolicies = () => {
   const policies = [];
   const endDate = "Jul 31, 2025"; // All voting ends July 31, 2025
