@@ -11,8 +11,11 @@ export const Header = () => {
           {/* Logo */}
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
-              <span className="text-2xl font-light text-gray-900">Innovotes</span>
-              <span className="text-sm font-light text-blue-600 ml-1">.com</span>
+              <img 
+                src="/logo.svg" 
+                alt="Innovotes.com Logo" 
+                className="h-12 w-auto mr-2"
+              />
             </div>
           </div>
 
