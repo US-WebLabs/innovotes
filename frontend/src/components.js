@@ -264,8 +264,11 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center mb-4">
-              <span className="text-2xl font-light text-gray-900">Innovotes</span>
-              <span className="text-sm font-light text-blue-600 ml-1">.com</span>
+              <img 
+                src="/logo.svg" 
+                alt="Innovotes.com" 
+                className="h-10 w-auto"
+              />
             </div>
             <p className="text-gray-600 font-light leading-relaxed mb-4">
               Empowering citizens through direct democracy and transparent policy voting. 
