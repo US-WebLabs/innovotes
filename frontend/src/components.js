@@ -4,7 +4,6 @@ import { useNavigate, Link } from 'react-router-dom';
 // Header Component with Routing
 export const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
 
   return (
     <header className="bg-white border-b-2 border-gray-100 sticky top-0 z-50">
@@ -164,7 +163,7 @@ export const PolicyCard = ({ policy }) => {
 
         {/* Policy Description */}
         <p className="text-sm text-gray-600 mb-4 font-light leading-relaxed">
-          {policy.description}
+          {policy.description.replace(/"/g, '&quot;').replace(/'/g, '&apos;')}
         </p>
 
         {/* Voting Percentages */}
@@ -227,8 +226,6 @@ export const PolicyCard = ({ policy }) => {
 
 // Hero Section Component
 export const HeroSection = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="bg-gradient-to-r from-blue-50 to-red-50 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -241,18 +238,18 @@ export const HeroSection = () => {
           AI-assisted proposal generation and transparent democratic participation.
         </p>
         <div className="flex justify-center space-x-4">
-          <button 
-            onClick={() => navigate('/signup')}
+          <Link 
+            to="/signup"
             className="bg-blue-600 text-white px-8 py-3 rounded-lg font-light text-lg hover:bg-blue-700 transition-colors"
           >
             Start Voting
-          </button>
-          <button 
-            onClick={() => navigate('/how-it-works')}
-            className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-light text-lg hover:bg-gray-50 transition-colors"
+          </Link>
+          <Link 
+            to="/how-it-works"
+            className="bg-white text-blue-600 px-8 py-3 rounded-lg font-light text-lg hover:bg-gray-50 transition-colors border border-blue-200"
           >
-            Learn How It Works
-          </button>
+            Learn More
+          </Link>
         </div>
       </div>
     </div>
@@ -353,8 +350,6 @@ export const HowItWorksPage = () => {
 // Sign Up Page
 export const SignUpPage = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -363,103 +358,106 @@ export const SignUpPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle sign up logic here
-    console.log('Sign up submitted:', formData);
+    // Handle form submission
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-16">
-      <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-lg shadow-sm p-8">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-light text-gray-900 mb-2">Join Innovotes</h1>
-            <p className="text-gray-600 font-light">Participate in direct democracy</p>
-          </div>
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <h2 className="mt-6 text-center text-3xl font-light text-gray-900">
+          Create your account
+        </h2>
+      </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="email" className="block text-sm font-light text-gray-700">
+                Email address
+              </label>
+              <div className="mt-1">
                 <input
-                  type="text"
-                  value={formData.firstName}
-                  onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
                   required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                <input
-                  type="text"
-                  value={formData.lastName}
-                  onChange={(e) => setFormData({...formData, lastName: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-              <input
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
+              <label htmlFor="password" className="block text-sm font-light text-gray-700">
+                Password
+              </label>
+              <div className="mt-1">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  value={formData.password}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
-              <input
-                type="password"
-                value={formData.password}
-                onChange={(e) => setFormData({...formData, password: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
-              <input
-                type="password"
-                value={formData.confirmPassword}
-                onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
+              <label htmlFor="confirmPassword" className="block text-sm font-light text-gray-700">
+                Confirm Password
+              </label>
+              <div className="mt-1">
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  value={formData.confirmPassword}
+                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
             </div>
 
             <div className="flex items-center">
               <input
-                type="checkbox"
                 id="agreeToTerms"
-                checked={formData.agreeToTerms}
-                onChange={(e) => setFormData({...formData, agreeToTerms: e.target.checked})}
-                className="mr-2"
+                name="agreeToTerms"
+                type="checkbox"
                 required
+                checked={formData.agreeToTerms}
+                onChange={(e) => setFormData({ ...formData, agreeToTerms: e.target.checked })}
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                aria-label="Agree to terms and conditions"
               />
-              <label htmlFor="agreeToTerms" className="text-sm text-gray-600">
-                I agree to the Terms of Service and Privacy Policy
+              <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-gray-900">
+                I agree to the{' '}
+                <Link to="/terms" className="text-blue-600 hover:text-blue-500">
+                  Terms of Service
+                </Link>
+                {' '}and{' '}
+                <Link to="/privacy" className="text-blue-600 hover:text-blue-500">
+                  Privacy Policy
+                </Link>
               </label>
             </div>
 
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-md font-medium hover:bg-blue-700 transition-colors"
-            >
-              Create Account
-            </button>
+            <div>
+              <button
+                type="submit"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-light text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Sign up
+              </button>
+            </div>
           </form>
-
-          <div className="text-center mt-6">
-            <p className="text-sm text-gray-600">
-              Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Sign in</Link>
-            </p>
-          </div>
         </div>
       </div>
     </div>
@@ -579,58 +577,98 @@ export const NotFoundPage = () => {
 // Footer Component
 export const Footer = () => {
   return (
-    <footer className="bg-gray-50 border-t border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center mb-4">
-              <img 
-                src="/logo.svg" 
-                alt="Innovotes.com" 
-                className="h-10 w-auto"
-              />
-            </div>
-            <p className="text-gray-600 font-light leading-relaxed mb-4">
-              Empowering citizens through direct democracy and transparent policy voting. 
-              Every voice matters in shaping our collective future.
-            </p>
-            <div className="flex space-x-4">
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs">f</span>
-              </div>
-              <div className="w-8 h-8 bg-blue-400 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs">t</span>
-              </div>
-              <div className="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs">in</span>
-              </div>
-            </div>
-          </div>
-          
+    <footer className="bg-white border-t border-gray-200">
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-sm font-medium text-gray-900 mb-4">Platform</h3>
-            <ul className="space-y-2">
-              <li><Link to="/how-it-works" className="text-sm text-gray-600 hover:text-gray-900 font-light">How It Works</Link></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900 font-light">Security</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900 font-light">Transparency</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900 font-light">API</a></li>
+            <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">About</h3>
+            <ul className="mt-4 space-y-4">
+              <li>
+                <Link to="/about" className="text-base text-gray-500 hover:text-gray-900">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-base text-gray-500 hover:text-gray-900">
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link to="/careers" className="text-base text-gray-500 hover:text-gray-900">
+                  Careers
+                </Link>
+              </li>
             </ul>
           </div>
-          
           <div>
-            <h3 className="text-sm font-medium text-gray-900 mb-4">Support</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900 font-light">Help Center</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900 font-light">Contact</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900 font-light">Privacy</a></li>
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900 font-light">Terms</a></li>
+            <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Legal</h3>
+            <ul className="mt-4 space-y-4">
+              <li>
+                <Link to="/privacy" className="text-base text-gray-500 hover:text-gray-900">
+                  Privacy
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms" className="text-base text-gray-500 hover:text-gray-900">
+                  Terms
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Resources</h3>
+            <ul className="mt-4 space-y-4">
+              <li>
+                <Link to="/blog" className="text-base text-gray-500 hover:text-gray-900">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link to="/help" className="text-base text-gray-500 hover:text-gray-900">
+                  Help Center
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Social</h3>
+            <ul className="mt-4 space-y-4">
+              <li>
+                <a 
+                  href="https://twitter.com/innovotes" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-base text-gray-500 hover:text-gray-900"
+                >
+                  Twitter
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://facebook.com/innovotes" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-base text-gray-500 hover:text-gray-900"
+                >
+                  Facebook
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://linkedin.com/company/innovotes" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-base text-gray-500 hover:text-gray-900"
+                >
+                  LinkedIn
+                </a>
+              </li>
             </ul>
           </div>
         </div>
-        
-        <div className="border-t border-gray-200 mt-8 pt-8 text-center">
-          <p className="text-sm text-gray-500 font-light">
-            © 2025 Innovotes.com. Empowering democracy through technology.
+        <div className="mt-8 border-t border-gray-200 pt-8">
+          <p className="text-base text-gray-400 text-center">
+            &copy; {new Date().getFullYear()} Innovotes. All rights reserved.
           </p>
         </div>
       </div>

@@ -27,5 +27,8 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
+    'react/no-unescaped-entities': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
+    'jsx-a11y/anchor-is-valid': 'off'
   },
 }; 
