@@ -125,6 +125,7 @@ export const PolicyCard = ({ policy }) => {
             policy.category === 'healthcare' ? 'bg-red-100 text-red-800' :
             policy.category === 'defense' ? 'bg-blue-100 text-blue-800' :
             policy.category === 'energy' ? 'bg-yellow-100 text-yellow-800' :
+            policy.category === 'technology' ? 'bg-indigo-100 text-indigo-800' :
             'bg-purple-100 text-purple-800'
           }`}>
             {policy.categoryName}
