@@ -18,7 +18,7 @@ const generateMockPolicies = () => {
     };
   };
 
-  // TAXATION POLICIES (25 policies)
+  // TAXATION POLICIES (30 policies)
   const taxationPolicies = [
     { title: "Permanent Extension of 2017 Tax Cuts", description: "Make the individual tax rate reductions from the Tax Cuts and Jobs Act permanent, preventing automatic expiration in 2025.", impactLevel: "High - $1.2T budget impact" },
     { title: "Tax-Free Status for Tips and Overtime Pay", description: "Eliminate federal income tax on tip income and overtime wages for workers across all industries.", impactLevel: "Medium - $89B revenue reduction" },
@@ -44,7 +44,12 @@ const generateMockPolicies = () => {
     { title: "Rural Business Investment Credit", description: "Establish enhanced tax credits for businesses investing in rural and underserved communities.", impactLevel: "Low - $5B revenue reduction" },
     { title: "Alternative Minimum Tax Repeal", description: "Eliminate the Alternative Minimum Tax for both individual and corporate taxpayers.", impactLevel: "Medium - $19B revenue reduction" },
     { title: "Retirement Savings Enhancement", description: "Increase 401(k) and IRA contribution limits by 50% for workers over age 50.", impactLevel: "Medium - $14B revenue reduction" },
-    { title: "Small Business Equipment Expensing", description: "Raise Section 179 equipment expensing limits from $1M to $2M for small businesses.", impactLevel: "Low - $7B revenue reduction" }
+    { title: "Small Business Equipment Expensing", description: "Raise Section 179 equipment expensing limits from $1M to $2M for small businesses.", impactLevel: "Low - $7B revenue reduction" },
+    { title: "Digital Services Tax Elimination", description: "Prohibit state and local governments from imposing taxes on digital services and platforms.", impactLevel: "Medium - $8B revenue reduction" },
+    { title: "Cryptocurrency Tax Clarification", description: "Establish clear tax guidelines for cryptocurrency transactions and mining operations.", impactLevel: "Medium - Regulatory clarity" },
+    { title: "International Tax Competition Act", description: "Reduce corporate tax rates to compete with international tax havens and retain businesses.", impactLevel: "High - $89B revenue reduction" },
+    { title: "Family Business Succession Planning", description: "Provide tax relief for family business transfers and succession planning.", impactLevel: "Medium - $12B revenue reduction" },
+    { title: "Angel Investor Tax Credit Program", description: "Create federal tax credits for angel investors supporting startup companies.", impactLevel: "Low - $4B revenue reduction" }
   ];
 
   // HEALTHCARE POLICIES (22 policies)
