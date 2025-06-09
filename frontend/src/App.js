@@ -139,7 +139,7 @@ const generateMockPolicies = () => {
     { title: "Energy Research and Development", description: "Increase federal funding for energy innovation and breakthrough technologies.", impactLevel: "Medium - Technology advancement" }
   ];
 
-  // SOCIAL PROGRAMS (20 policies)
+  // SOCIAL PROGRAMS (25 policies)
   const socialPolicies = [
     { title: "SNAP Benefit Cost-Sharing Reform", description: "Shift 5% of SNAP benefit costs and 75% of administrative costs from federal to state governments.", impactLevel: "High - 42M recipients affected" },
     { title: "Enhanced SNAP Eligibility Requirements", description: "Implement stricter work requirements and asset limits for Supplemental Nutrition Assistance Program eligibility.", impactLevel: "High - 6.2M people lose benefits" },
@@ -160,7 +160,12 @@ const generateMockPolicies = () => {
     { title: "Job Training Program Consolidation", description: "Consolidate multiple federal job training programs into single state-managed program.", impactLevel: "Medium - Workforce development" },
     { title: "Public Transportation Funding Cuts", description: "Reduce federal funding for public transportation systems in urban areas.", impactLevel: "Medium - Public transit systems" },
     { title: "Community Health Center Funding", description: "Reduce federal funding for Federally Qualified Health Centers by 30%.", impactLevel: "High - 30M patients affected" },
-    { title: "Legal Aid Funding Elimination", description: "Eliminate federal funding for Legal Services Corporation providing legal aid to low-income Americans.", impactLevel: "Medium - Legal aid access" }
+    { title: "Legal Aid Funding Elimination", description: "Eliminate federal funding for Legal Services Corporation providing legal aid to low-income Americans.", impactLevel: "Medium - Legal aid access" },
+    { title: "Foster Care System Reform", description: "Restructure federal foster care funding and oversight mechanisms.", impactLevel: "High - 400K children in care" },
+    { title: "Homeless Services Consolidation", description: "Combine federal homeless assistance programs into single block grant system.", impactLevel: "High - 580K homeless individuals" },
+    { title: "Food Bank Support Reduction", description: "Reduce federal support for food banks and emergency food assistance programs.", impactLevel: "Medium - Food security networks" },
+    { title: "Senior Nutrition Program Changes", description: "Modify eligibility and funding for senior meal delivery and nutrition programs.", impactLevel: "Medium - 2.4M seniors affected" },
+    { title: "Workforce Development Restructuring", description: "Combine job training and employment services into state-managed programs.", impactLevel: "Medium - Employment services" }
   ];
 
   // EDUCATION & TECHNOLOGY (18 policies)
