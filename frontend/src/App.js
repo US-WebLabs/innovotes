@@ -81,7 +81,7 @@ const generateMockPolicies = () => {
     { title: "Public Health Emergency Preparedness", description: "Strengthen federal and state capabilities to respond to future health emergencies.", impactLevel: "High - National preparedness" }
   ];
 
-  // DEFENSE & SECURITY POLICIES (24 policies)
+  // DEFENSE & SECURITY POLICIES (28 policies)
   const defensePolicies = [
     { title: "$150B Additional Defense Spending", description: "Increase annual defense budget by $150 billion for military modernization and readiness improvements.", impactLevel: "High - 18% defense budget increase" },
     { title: "$25B Golden Dome Defense System", description: "Fund development and deployment of advanced missile defense system for homeland security.", impactLevel: "Medium - 5-year development program" },
@@ -106,7 +106,11 @@ const generateMockPolicies = () => {
     { title: "Emergency Response Capabilities", description: "Enhance federal disaster response capabilities and equipment stockpiles.", impactLevel: "Medium - FEMA operations" },
     { title: "Critical Infrastructure Protection", description: "Strengthen protection of power grids, water systems, and transportation networks.", impactLevel: "High - Infrastructure security" },
     { title: "Military Housing Improvement", description: "Renovate and build new housing facilities for military families on bases.", impactLevel: "Medium - $12B housing program" },
-    { title: "Defense Research Partnerships", description: "Expand university partnerships for defense research and technology development.", impactLevel: "Medium - Research collaboration" }
+    { title: "Defense Research Partnerships", description: "Expand university partnerships for defense research and technology development.", impactLevel: "Medium - Research collaboration" },
+    { title: "Coast Guard Fleet Expansion", description: "Modernize and expand Coast Guard vessels and equipment for maritime security.", impactLevel: "Medium - Maritime protection" },
+    { title: "Nuclear Arsenal Modernization", description: "Update and maintain nuclear weapons systems and delivery platforms.", impactLevel: "High - Nuclear deterrence" },
+    { title: "Special Operations Enhancement", description: "Expand special operations capabilities and training facilities.", impactLevel: "Medium - Elite forces" },
+    { title: "International Defense Cooperation", description: "Strengthen defense partnerships and joint training exercises with allies.", impactLevel: "Medium - Global alliances" }
   ];
 
   // ENERGY POLICIES (18 policies)
