@@ -52,7 +52,7 @@ const generateMockPolicies = () => {
     { title: "Angel Investor Tax Credit Program", description: "Create federal tax credits for angel investors supporting startup companies.", impactLevel: "Low - $4B revenue reduction" }
   ];
 
-  // HEALTHCARE POLICIES (22 policies)
+  // HEALTHCARE POLICIES (25 policies)
   const healthcarePolicies = [
     { title: "Medicaid Work Requirements", description: "Require able-bodied adults without children to work or participate in job training to receive Medicaid benefits.", impactLevel: "High - 5.2M people affected" },
     { title: "Gender-Affirming Care Medicaid Restrictions", description: "Prohibit federal Medicaid funding for gender-affirming medical treatments starting in 2027.", impactLevel: "Medium - 180K people affected" },
@@ -75,7 +75,10 @@ const generateMockPolicies = () => {
     { title: "Veterans Healthcare Expansion", description: "Expand VA healthcare eligibility and improve mental health services for veterans.", impactLevel: "High - 9M veterans affected" },
     { title: "Maternal Mortality Prevention", description: "Fund state programs to reduce maternal mortality rates and improve pregnancy outcomes.", impactLevel: "Medium - $500M program" },
     { title: "Opioid Treatment Expansion", description: "Expand access to medication-assisted treatment for opioid addiction in underserved areas.", impactLevel: "High - 2M Americans in treatment" },
-    { title: "Healthcare Cybersecurity Standards", description: "Establish mandatory cybersecurity standards for healthcare providers and medical devices.", impactLevel: "Medium - Healthcare industry" }
+    { title: "Healthcare Cybersecurity Standards", description: "Establish mandatory cybersecurity standards for healthcare providers and medical devices.", impactLevel: "Medium - Healthcare industry" },
+    { title: "Pediatric Care Access Improvement", description: "Increase Medicaid reimbursement rates for pediatric specialists and children's hospitals.", impactLevel: "High - 37M children affected" },
+    { title: "Long-Term Care Reform", description: "Restructure long-term care financing and improve quality standards for nursing facilities.", impactLevel: "High - 1.4M nursing home residents" },
+    { title: "Public Health Emergency Preparedness", description: "Strengthen federal and state capabilities to respond to future health emergencies.", impactLevel: "High - National preparedness" }
   ];
 
   // DEFENSE & SECURITY POLICIES (24 policies)
