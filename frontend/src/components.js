@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 
-// Header Component
+// Header Component with Routing
 export const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   return (
     <header className="bg-white border-b-2 border-gray-100 sticky top-0 z-50">
@@ -10,13 +12,13 @@ export const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="flex-shrink-0 flex items-center">
+            <Link to="/" className="flex-shrink-0 flex items-center">
               <img 
                 src="/logo.svg" 
                 alt="Innovotes.com Logo" 
                 className="h-12 w-auto mr-2"
               />
-            </div>
+            </Link>
           </div>
 
           {/* Search Bar */}
@@ -39,18 +41,30 @@ export const Header = () => {
 
           {/* Navigation */}
           <div className="flex items-center space-x-6">
-            <button className="text-gray-700 hover:text-blue-600 font-light transition-colors">
+            <Link 
+              to="/how-it-works" 
+              className="text-gray-700 hover:text-blue-600 font-light transition-colors"
+            >
               How It Works
-            </button>
-            <button className="text-gray-700 hover:text-blue-600 font-light transition-colors">
+            </Link>
+            <Link 
+              to="/my-votes" 
+              className="text-gray-700 hover:text-blue-600 font-light transition-colors"
+            >
               My Votes
-            </button>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg font-light hover:bg-blue-700 transition-colors">
+            </Link>
+            <Link 
+              to="/signup" 
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg font-light hover:bg-blue-700 transition-colors"
+            >
               Sign Up
-            </button>
-            <button className="text-blue-600 border border-blue-600 px-4 py-2 rounded-lg font-light hover:bg-blue-50 transition-colors">
+            </Link>
+            <Link 
+              to="/login" 
+              className="text-blue-600 border border-blue-600 px-4 py-2 rounded-lg font-light hover:bg-blue-50 transition-colors"
+            >
               Log In
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -58,7 +72,7 @@ export const Header = () => {
   );
 };
 
-// Navigation Tabs Component
+// Navigation Tabs Component with Routing
 export const NavigationTabs = ({ activeCategory, setActiveCategory }) => {
   const categories = [
     { id: 'all', name: 'All Policies', icon: '🏛️' },
@@ -67,7 +81,10 @@ export const NavigationTabs = ({ activeCategory, setActiveCategory }) => {
     { id: 'defense', name: 'Defense & Security', icon: '🛡️' },
     { id: 'energy', name: 'Energy', icon: '⚡' },
     { id: 'social', name: 'Social Programs', icon: '🤝' },
-    { id: 'technology', name: 'Technology', icon: '💻' }
+    { id: 'technology', name: 'Technology', icon: '💻' },
+    { id: 'infrastructure', name: 'Infrastructure', icon: '🏗️' },
+    { id: 'agriculture', name: 'Agriculture', icon: '🌾' },
+    { id: 'immigration', name: 'Immigration', icon: '🗽' }
   ];
 
   return (
@@ -106,13 +123,13 @@ export const PolicyCard = ({ policy }) => {
   const opposePercentage = 100 - supportPercentage;
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200 policy-card">
       {/* Policy Image */}
       <div className="h-48 bg-gray-100 rounded-t-lg overflow-hidden">
         <img 
           src={policy.image} 
           alt={policy.title}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover responsive-image"
         />
       </div>
 
@@ -126,6 +143,9 @@ export const PolicyCard = ({ policy }) => {
             policy.category === 'defense' ? 'bg-blue-100 text-blue-800' :
             policy.category === 'energy' ? 'bg-yellow-100 text-yellow-800' :
             policy.category === 'technology' ? 'bg-indigo-100 text-indigo-800' :
+            policy.category === 'infrastructure' ? 'bg-orange-100 text-orange-800' :
+            policy.category === 'agriculture' ? 'bg-emerald-100 text-emerald-800' :
+            policy.category === 'immigration' ? 'bg-pink-100 text-pink-800' :
             'bg-purple-100 text-purple-800'
           }`}>
             {policy.categoryName}
@@ -205,6 +225,8 @@ export const PolicyCard = ({ policy }) => {
 
 // Hero Section Component
 export const HeroSection = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-gradient-to-r from-blue-50 to-red-50 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -217,10 +239,16 @@ export const HeroSection = () => {
           AI-assisted proposal generation and transparent democratic participation.
         </p>
         <div className="flex justify-center space-x-4">
-          <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-light text-lg hover:bg-blue-700 transition-colors">
+          <button 
+            onClick={() => navigate('/signup')}
+            className="bg-blue-600 text-white px-8 py-3 rounded-lg font-light text-lg hover:bg-blue-700 transition-colors"
+          >
             Start Voting
           </button>
-          <button className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-light text-lg hover:bg-gray-50 transition-colors">
+          <button 
+            onClick={() => navigate('/how-it-works')}
+            className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-light text-lg hover:bg-gray-50 transition-colors"
+          >
             Learn How It Works
           </button>
         </div>
@@ -230,10 +258,10 @@ export const HeroSection = () => {
 };
 
 // Stats Component
-export const StatsSection = () => {
+export const StatsSection = ({ totalPolicies = 200 }) => {
   const stats = [
     { number: '2.4M', label: 'Active Voters', color: 'text-blue-600' },
-    { number: '127', label: 'Active Policies', color: 'text-red-600' },
+    { number: totalPolicies.toString(), label: 'Active Policies', color: 'text-red-600' },
     { number: '89%', label: 'Participation Rate', color: 'text-green-600' },
     { number: '$2.4T', label: 'Budget Impact', color: 'text-purple-600' }
   ];
@@ -252,6 +280,294 @@ export const StatsSection = () => {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// How It Works Page
+export const HowItWorksPage = () => {
+  return (
+    <div className="min-h-screen bg-gray-50 py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-light text-gray-900 mb-4">How Innovotes Works</h1>
+          <p className="text-xl text-gray-600 font-light">Participate in direct democracy through our transparent voting platform</p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-white text-2xl">1</span>
+            </div>
+            <h3 className="text-xl font-medium text-gray-900 mb-2">Browse Policies</h3>
+            <p className="text-gray-600 font-light">Explore government policy proposals across all major categories including taxation, healthcare, defense, and more.</p>
+          </div>
+
+          <div className="text-center">
+            <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-white text-2xl">2</span>
+            </div>
+            <h3 className="text-xl font-medium text-gray-900 mb-2">Cast Your Vote</h3>
+            <p className="text-gray-600 font-light">Vote "Yes" or "No" on policies that matter to you. Each vote is recorded and contributes to the democratic process.</p>
+          </div>
+
+          <div className="text-center">
+            <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-white text-2xl">3</span>
+            </div>
+            <h3 className="text-xl font-medium text-gray-900 mb-2">Shape Policy</h3>
+            <p className="text-gray-600 font-light">Your votes influence policy decisions and help representatives understand constituent preferences.</p>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg p-8 shadow-sm">
+          <h2 className="text-2xl font-medium text-gray-900 mb-6">Key Features</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-medium text-gray-900 mb-2">🔒 Secure Voting</h4>
+              <p className="text-gray-600 font-light">Advanced encryption and verification ensure your votes are secure and anonymous.</p>
+            </div>
+            <div>
+              <h4 className="font-medium text-gray-900 mb-2">📊 Real-Time Results</h4>
+              <p className="text-gray-600 font-light">See live voting results and track policy support in real-time.</p>
+            </div>
+            <div>
+              <h4 className="font-medium text-gray-900 mb-2">🎯 Impact Tracking</h4>
+              <p className="text-gray-600 font-light">Understand the budget impact and affected populations for each policy.</p>
+            </div>
+            <div>
+              <h4 className="font-medium text-gray-900 mb-2">🤖 AI Assistance</h4>
+              <p className="text-gray-600 font-light">AI-powered policy summaries help you understand complex legislation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Sign Up Page
+export const SignUpPage = () => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    agreeToTerms: false
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle sign up logic here
+    console.log('Sign up submitted:', formData);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-16">
+      <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white rounded-lg shadow-sm p-8">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-light text-gray-900 mb-2">Join Innovotes</h1>
+            <p className="text-gray-600 font-light">Participate in direct democracy</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                <input
+                  type="text"
+                  value={formData.firstName}
+                  onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                <input
+                  type="text"
+                  value={formData.lastName}
+                  onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+              <input
+                type="password"
+                value={formData.password}
+                onChange={(e) => setFormData({...formData, password: e.target.value})}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+              <input
+                type="password"
+                value={formData.confirmPassword}
+                onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="agreeToTerms"
+                checked={formData.agreeToTerms}
+                onChange={(e) => setFormData({...formData, agreeToTerms: e.target.checked})}
+                className="mr-2"
+                required
+              />
+              <label htmlFor="agreeToTerms" className="text-sm text-gray-600">
+                I agree to the Terms of Service and Privacy Policy
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-3 rounded-md font-medium hover:bg-blue-700 transition-colors"
+            >
+              Create Account
+            </button>
+          </form>
+
+          <div className="text-center mt-6">
+            <p className="text-sm text-gray-600">
+              Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Sign in</Link>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Login Page
+export const LoginPage = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    rememberMe: false
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle login logic here
+    console.log('Login submitted:', formData);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-16">
+      <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white rounded-lg shadow-sm p-8">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-light text-gray-900 mb-2">Welcome Back</h1>
+            <p className="text-gray-600 font-light">Sign in to your Innovotes account</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+              <input
+                type="password"
+                value={formData.password}
+                onChange={(e) => setFormData({...formData, password: e.target.value})}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="rememberMe"
+                  checked={formData.rememberMe}
+                  onChange={(e) => setFormData({...formData, rememberMe: e.target.checked})}
+                  className="mr-2"
+                />
+                <label htmlFor="rememberMe" className="text-sm text-gray-600">Remember me</label>
+              </div>
+              <a href="#" className="text-sm text-blue-600 hover:underline">Forgot password?</a>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-3 rounded-md font-medium hover:bg-blue-700 transition-colors"
+            >
+              Sign In
+            </button>
+          </form>
+
+          <div className="text-center mt-6">
+            <p className="text-sm text-gray-600">
+              Don't have an account? <Link to="/signup" className="text-blue-600 hover:underline">Sign up</Link>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Not Found Page
+export const NotFoundPage = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-16">
+      <div className="text-center">
+        <div className="text-9xl font-light text-blue-600 mb-4">404</div>
+        <h1 className="text-4xl font-light text-gray-900 mb-4">Page Not Found</h1>
+        <p className="text-xl text-gray-600 mb-8 font-light">
+          The page you're looking for doesn't exist or has been moved.
+        </p>
+        <div className="space-x-4">
+          <button
+            onClick={() => navigate('/')}
+            className="bg-blue-600 text-white px-6 py-3 rounded-lg font-light hover:bg-blue-700 transition-colors"
+          >
+            Go Home
+          </button>
+          <button
+            onClick={() => navigate(-1)}
+            className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-light hover:bg-gray-50 transition-colors"
+          >
+            Go Back
+          </button>
         </div>
       </div>
     </div>
@@ -292,7 +608,7 @@ export const Footer = () => {
           <div>
             <h3 className="text-sm font-medium text-gray-900 mb-4">Platform</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900 font-light">How It Works</a></li>
+              <li><Link to="/how-it-works" className="text-sm text-gray-600 hover:text-gray-900 font-light">How It Works</Link></li>
               <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900 font-light">Security</a></li>
               <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900 font-light">Transparency</a></li>
               <li><a href="#" className="text-sm text-gray-600 hover:text-gray-900 font-light">API</a></li>
